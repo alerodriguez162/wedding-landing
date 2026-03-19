@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sand: 250 246 240;
+  --blush: 253 246 245;
+  --gold: 201 169 98;
+  --foreground: 55 48 40;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-sand-50 text-stone-800 antialiased;
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 1;
+}
+
+/* Checkbox y radio visibles (Tailwind preflight quita el estilo nativo) */
+input[type='checkbox'],
+input[type='radio'] {
+  -webkit-appearance: auto;
+  appearance: auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  margin: 0;
+  accent-color: #b8954a;
+  cursor: pointer;
+  border: 2px solid #e2d6c4;
+}
+input[type='radio'] {
+  border-radius: 50%;
+}
+input[type='checkbox'] {
+  border-radius: 0.25rem;
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20;
+  }
+  .card {
+    @apply rounded-2xl border border-sand-200/80 bg-white/90 shadow-sm backdrop-blur;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-stone-800 px-6 py-3.5 text-base font-medium text-white shadow-sm transition hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-6 py-3.5 text-base font-medium text-stone-700 shadow-sm transition hover:bg-sand-100 focus:outline-none focus:ring-2 focus:ring-gold-500 focus:ring-offset-2;
+  }
+  .input-field {
+    @apply block w-full rounded-xl border border-sand-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 focus:border-gold-500 focus:outline-none focus:ring-1 focus:ring-gold-500;
+  }
+  .label {
+    @apply block text-sm font-medium text-stone-700;
+  }
+}

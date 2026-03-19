@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Guest {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MealSelection {
+  id             String   @id @default(cuid())
+  senderName     String
+  attendeeName   String?
+  adultMainDish  String
+  kidsMainDish   String?
+  imageUrls      String[] @default([])
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model LodgingRequest {
+  id               String   @id @default(cuid())
+  name             String
+  numberOfPeople   Int
+  adults           Int
+  children         Int
+  arrivalDate      DateTime
+  departureDate    DateTime
+  willingToShare   Boolean  @default(false)
+  selectedRoomType String?
+  nights           Int?
+  estimatedTotal   Decimal? @db.Decimal(10, 2)
+  paymentStatus    String   @default("pending")
+  notes            String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model RoomType {
+  id             String   @id @default(cuid())
+  roomType       String   @unique
+  label          String
+  capacity       Int
+  pricePerNight  Decimal  @db.Decimal(10, 2)
+  totalAvailable Int      @default(0)
+  totalReserved  Int      @default(0)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model TransportInfo {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String   @db.Text
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+model MakeupHairRequest {
+  id          String   @id @default(cuid())
+  name        String
+  peopleCount Int
+  serviceType String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PhotoUpload {
+  id           String   @id @default(cuid())
+  uploaderName String?
+  imageUrl     String
+  createdAt    DateTime @default(now())
+}

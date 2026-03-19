@@ -1,0 +1,85 @@
+{
+  "root": true,
+  "env": { "browser": true, "es2022": true, "node": true },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": { "jsx": true }
+  },
+  "plugins": ["react", "react-hooks", "@typescript-eslint"],
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier"
+  ],
+  "settings": {
+    "react": { "version": "detect" }
+  },
+  "rules": {
+    "react/jsx-no-bind": [
+      "warn",
+      {
+        "ignoreRefs": true,
+        "allowArrowFunctions": true,
+        "allowFunctions": true,
+        "allowBind": false
+      }
+    ],
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "comma-dangle": ["error", "always-multiline"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "never"],
+    "react/self-closing-comp": "error",
+    "react/jsx-boolean-value": ["error", "never"],
+    "react/jsx-curly-brace-presence": ["error", { "props": "never", "children": "never" }],
+    "react/jsx-fragments": ["error", "syntax"],
+    "react/jsx-sort-props": ["warn", { "callbacksLast": true, "shorthandFirst": true }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/consistent-type-imports": ["error", { "prefer": "type-imports" }],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-nested-ternary": "error",
+    "arrow-body-style": ["error", "as-needed"],
+    "prefer-const": "error",
+
+    "eqeqeq": ["error", "always", { "null": "ignore" }],
+    "no-var": "error",
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+    "no-trailing-spaces": "error",
+    "eol-last": ["error", "always"],
+    "consistent-return": "warn",
+    "default-case": "warn",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "ForInStatement",
+        "message": "for..in puede iterar sobre la cadena; prefiere for..of u Object.keys()."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-require-imports": "warn"
+      }
+    }
+  ],
+  "ignorePatterns": ["node_modules/", ".next/", "out/", "*.config.js", "*.config.ts"]
+}

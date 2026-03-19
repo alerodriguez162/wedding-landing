@@ -1,0 +1,23 @@
+# Dependencies and build
+node_modules
+.next
+out
+build
+dist
+
+# Prisma
+prisma/migrations
+
+# Misc
+*.min.js
+*.min.css
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.env
+.env.*
+
+# Generated / large
+public/uploads
+*.md
+!README.md

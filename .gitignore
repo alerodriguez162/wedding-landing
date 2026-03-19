@@ -1,0 +1,60 @@
+# dependencies
+node_modules
+.pnp
+.pnp.js
+.yarn/cache
+.yarn/install-state.gz
+.yarn/unplugged
+
+# testing
+coverage
+*.lcov
+
+# next.js
+.next/
+out/
+swc.lock
+
+# production
+build
+dist
+.vercel
+
+# env (nunca subir secretos; .env.example sí se commitea)
+.env
+.env*.local
+.env.production
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug / logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+lerna-debug.log*
+
+# prisma
+prisma/migrations
+
+# uploads
+public/uploads
+
+# IDE / editores
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# misc
+*.pem
+.turbo
+*.tsbuildinfo
+.eslintcache
