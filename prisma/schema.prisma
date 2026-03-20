@@ -32,6 +32,8 @@ model LodgingRequest {
   numberOfPeople   Int
   adults           Int
   children         Int
+  roomsNeeded      Int?
+  roomBreakdown    String?  @db.Text
   arrivalDate      DateTime
   departureDate    DateTime
   willingToShare   Boolean  @default(false)

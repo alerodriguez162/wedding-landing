@@ -30,7 +30,7 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-sand-100 via-blush-50/30 to-sand-50 px-4 pt-16"
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-sand-100 via-blush-50/30 to-sand-50 px-4 pb-14 pt-16 sm:pb-16"
       id="hero"
     >
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,169,98,0.08)_0%,transparent_70%)]" />

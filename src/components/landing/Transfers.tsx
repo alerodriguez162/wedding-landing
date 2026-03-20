@@ -1,147 +1,103 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
-import { CONTACTS } from '@/lib/constants'
-
-type TransportData = {
-  taxiPhones: string
-  huatulcoInstructions: string
-  puertoEscondidoInstructions: string
-  mapEmbedOrUrl: string
-}
-
-const defaultTransport: TransportData = {
-  taxiPhones: '5532276938, 5528584046',
-  huatulcoInstructions:
-    'Si llegas a Huatulco, contacta a los taxistas listados para coordinar tu traslado hasta Beach Club. Contáctenos en cuanto tengan sus vuelos confirmados. En caso de no haber disponibilidad, háganoslo saber para ayudarles con su traslado.',
-  puertoEscondidoInstructions:
-    'Si llegas a Puerto Escondido, puedes tomar la Urvan con dirección a la zona del evento. Contáctenos en cuanto tengan sus vuelos confirmados. En caso de no haber disponibilidad, háganoslo saber para ayudarles con su traslado.',
-  mapEmbedOrUrl: '',
-}
-
-function formatWhatsAppUrl(phone: string) {
-  const digits = phone.replace(/\D/g, '')
-  return digits ? `https://wa.me/52${digits}` : null
-}
-
-function mapApiTransportToData(api: Record<string, unknown>): Partial<TransportData> {
-  return {
-    taxiPhones: typeof api.taxi_phones === 'string' ? api.taxi_phones : undefined,
-    huatulcoInstructions:
-      typeof api.huatulco_instructions === 'string' ? api.huatulco_instructions : undefined,
-    puertoEscondidoInstructions:
-      typeof api.puerto_escondido_instructions === 'string'
-        ? api.puerto_escondido_instructions
-        : undefined,
-    mapEmbedOrUrl: typeof api.map_embed_or_url === 'string' ? api.map_embed_or_url : undefined,
-  }
-}
 
 export function Transfers() {
-  const [transportData, setTransportData] = useState<TransportData>(defaultTransport)
-
-  useEffect(() => {
-    fetch('/api/transport')
-      .then((res) => (res.ok ? res.json() : {}))
-      .then((apiJson) => {
-        if (apiJson && typeof apiJson === 'object') {
-          const mapped = mapApiTransportToData(apiJson as Record<string, unknown>)
-          setTransportData((prev) => ({
-            ...prev,
-            ...Object.fromEntries(Object.entries(mapped).filter(([, v]) => v !== undefined)),
-          }))
-        }
-      })
-      .catch(() => {})
-  }, [])
-
-  const phoneList = transportData.taxiPhones
-    ? transportData.taxiPhones
-        .split(/[,;]/)
-        .map((phone) => phone.trim())
-        .filter(Boolean)
-    : []
-
   return (
     <Section id="transfers" subtitle="Cómo llegar" title="Traslados">
       <Card>
-        <p className="mb-6 rounded-xl bg-amber-50 p-4 text-amber-900">
-          Por favor contáctennos en cuanto tengan sus vuelos confirmados. En caso de no haber
-          disponibilidad, háganoslo saber para ayudarles con su traslado.
-        </p>
+        <div className="mb-10 space-y-3 text-center">
+          <p className="font-medium leading-snug text-stone-800">
+            🚗 Opciones de traslado a Puerto Ángel (Playa Panteón)
+          </p>
+          <p className="text-stone-600">
+            📍 <strong>Destino final:</strong> Playa Panteón
+          </p>
+        </div>
 
-        <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold text-stone-800">Teléfonos de taxistas</h3>
-            <ul className="mt-2 flex flex-wrap gap-2">
-              {phoneList.length > 0 ? (
-                phoneList.map((phone) => {
-                  const whatsAppUrl = formatWhatsAppUrl(phone)
-                  return (
-                    <li key={phone}>
-                      {whatsAppUrl ? (
-                        <a
-                          className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2 text-white hover:bg-[#20bd5a]"
-                          href={whatsAppUrl}
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          {phone} · WhatsApp
-                        </a>
-                      ) : (
-                        <span className="rounded-xl bg-sand-100 px-4 py-2">{phone}</span>
-                      )}
-                    </li>
-                  )
-                })
-              ) : (
-                <li>
-                  <a
-                    className="text-gold-600 underline"
-                    href={`https://wa.me/52${CONTACTS[0].phone}`}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    Contactar a Kari
-                  </a>
-                </li>
-              )}
+        <div className="space-y-10">
+          <section>
+            <h3 className="font-serif text-lg font-semibold text-stone-800">✈ Desde Huatulco</h3>
+            <div className="mt-4 space-y-4 text-stone-600">
+              <div className="rounded-xl border border-sand-200 bg-sand-50/50 p-4">
+                <p className="font-medium text-stone-800">
+                  🟢 Transporte público (económico) – ~$100 por persona
+                </p>
+                <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                  <li>Salir del aeropuerto hasta la avenida principal</li>
+                  <li>Ahí tomar una Urvan hacia San Pedro Pochutla (~$40)</li>
+                  <li>Bajarse en el crucero de Pochutla o hasta el final del recorrido</li>
+                  <li>Tomar taxi colectivo a Puerto Ángel a playa Panteón (~$25)</li>
+                </ol>
+                <p className="mt-2 text-sm font-medium text-gold-700">
+                  👉 Es la opción más fácil y práctica
+                </p>
+              </div>
+              <div className="rounded-xl border border-sand-200 p-4">
+                <p className="font-medium text-stone-800">🚕 Transporte privado – ~$800 a $1,000</p>
+                <p className="mt-1 text-sm">Taxi directo del aeropuerto a Puerto Ángel</p>
+              </div>
+              <p className="text-sm">
+                📞 <strong>Taxi en Huatulco:</strong>{' '}
+                <a className="text-gold-600 underline" href="tel:+529581224362">
+                  +52 1 958 122 4362
+                </a>{' '}
+                Don Ligorio José
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h3 className="font-serif text-lg font-semibold text-stone-800">
+              ✈ Desde Puerto Escondido
+            </h3>
+            <div className="mt-4 space-y-4 text-stone-600">
+              <div className="rounded-xl border border-sand-200 bg-amber-50/40 p-4">
+                <p className="font-medium text-stone-800">
+                  🟡 Transporte público – ~$100 por persona
+                </p>
+                <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm">
+                  <li>Del aeropuerto tomar taxi hacia la terminal ADO</li>
+                  <li>De ahí tomar transporte hacia San Pedro Pochutla</li>
+                  <li>Bajarse en el crucero de Pochutla</li>
+                  <li>Tomar taxi a Puerto Ángel, Playa Panteón</li>
+                </ol>
+                <p className="mt-2 text-sm text-amber-900">
+                  👉 Son 3 transportes, más largo y menos práctico
+                </p>
+              </div>
+              <div className="rounded-xl border border-sand-200 p-4">
+                <p className="font-medium text-stone-800">
+                  🚕 Transporte privado – ~$1,300 a $1,800
+                </p>
+                <p className="mt-1 text-sm">Taxi directo del aeropuerto al hospedaje</p>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3 className="font-serif text-lg font-semibold text-stone-800">
+              🚘 Extra: renta de auto
+            </h3>
+            <p className="mt-2 text-stone-600">
+              Aproximadamente <strong>$700 por día</strong>. Buena opción si quieren moverse
+              libremente.
+            </p>
+          </section>
+
+          <div className="rounded-xl border border-gold-200 bg-gold-50/50 p-4 text-sm text-stone-700">
+            <p className="font-medium text-stone-800">💡 Recomendación</p>
+            <ul className="mt-2 flex flex-col gap-1">
+              <li>✔ Más fácil: Huatulco en transporte público</li>
+              <li>✔ Más cómodo: taxi privado</li>
+              <li>⚠ Más complicado: Puerto Escondido en transporte público</li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-semibold text-stone-800">Si llegas a Huatulco</h3>
-            <p className="mt-2 text-stone-600">
-              {transportData.huatulcoInstructions || defaultTransport.huatulcoInstructions}
-            </p>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-stone-800">Si llegas a Puerto Escondido</h3>
-            <p className="mt-2 text-stone-600">
-              {transportData.puertoEscondidoInstructions ||
-                defaultTransport.puertoEscondidoInstructions}
-            </p>
-          </div>
-
-          {transportData.mapEmbedOrUrl && (
-            <div className="rounded-xl overflow-hidden border border-sand-200">
-              {transportData.mapEmbedOrUrl.includes('iframe') ? (
-                <div dangerouslySetInnerHTML={{ __html: transportData.mapEmbedOrUrl }} />
-              ) : (
-                <a
-                  className="block p-4 text-gold-600 underline"
-                  href={transportData.mapEmbedOrUrl}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Ver mapa / ruta de la Urvan
-                </a>
-              )}
-            </div>
-          )}
+          <p className="rounded-xl bg-sand-50 p-4 text-center text-sm text-stone-600">
+            Contáctanos en cuanto tengan sus vuelos confirmados para coordinar si lo necesitan.
+          </p>
         </div>
       </Card>
     </Section>

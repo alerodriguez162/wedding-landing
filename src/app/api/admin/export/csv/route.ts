@@ -20,14 +20,13 @@ export async function GET(req: Request) {
     if (type === 'meals' || type === 'all') {
       const meals = await prisma.mealSelection.findMany({ orderBy: { createdAt: 'desc' } })
       rows.push('Selecciones de platillo')
-      rows.push('Remitente,Asistente,Plato adulto,Plato niño,Notas,Fecha')
+      rows.push('Remitente,Asistente,Voto (plato),Notas,Fecha')
       for (const m of meals) {
         rows.push(
           [
             escapeCsv(m.senderName),
             escapeCsv(m.attendeeName || ''),
             escapeCsv(m.adultMainDish),
-            escapeCsv(m.kidsMainDish || ''),
             escapeCsv(m.notes || ''),
             m.createdAt.toISOString(),
           ].join(','),
@@ -39,7 +38,7 @@ export async function GET(req: Request) {
       const lodging = await prisma.lodgingRequest.findMany({ orderBy: { createdAt: 'desc' } })
       rows.push('Solicitudes de hospedaje')
       rows.push(
-        'Nombre,Personas,Adultos,Niños,Llegada,Salida,Compartir,Habitación,Noches,Total,Estado pago,Fecha',
+        'Nombre,Personas,Adultos,Niños,Llegada,Salida,Compartir,Habitaciones,Detalle habitaciones,Noches,Total,Estado pago,Fecha',
       )
       for (const r of lodging) {
         rows.push(
@@ -51,7 +50,8 @@ export async function GET(req: Request) {
             r.arrivalDate.toISOString().slice(0, 10),
             r.departureDate.toISOString().slice(0, 10),
             r.willingToShare ? 'Sí' : 'No',
-            escapeCsv(r.selectedRoomType || ''),
+            r.roomsNeeded ?? '',
+            escapeCsv(r.roomBreakdown || ''),
             r.nights ?? '',
             r.estimatedTotal?.toString() ?? '',
             escapeCsv(r.paymentStatus),

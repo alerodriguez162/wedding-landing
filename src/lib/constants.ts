@@ -11,8 +11,15 @@ const DEFAULT_ROOM_PHOTOS_POSTS = [
 ]
 const roomPhotosEnv = process.env.NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS ?? ''
 export const ROOM_PHOTOS_FACEBOOK_POST_URLS: string[] = roomPhotosEnv
-  ? roomPhotosEnv.split(',').map((u) => u.trim()).filter(Boolean)
+  ? roomPhotosEnv
+      .split(',')
+      .map((u) => u.trim())
+      .filter(Boolean)
   : DEFAULT_ROOM_PHOTOS_POSTS
+
+/** Mesa de regalos: enlace externo (Liverpool, Amazon, etc.). Vacío = mensaje “te pasamos el link”. */
+export const GIFT_REGISTRY_LINK = process.env.NEXT_PUBLIC_GIFT_REGISTRY_LINK ?? ''
+
 export const MAKEUP_HAIR_PRICE = 1800
 export const MAKEUP_HAIR_LINK =
   'https://www.facebook.com/profile.php?id=61566030973465&mibextid=wwXIfr&rdid=C4xNGED3wtbfJpKv&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AidQ3p4yb%2F%3Fmibextid%3DwwXIfr'

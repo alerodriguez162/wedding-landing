@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/Card'
 import { VENUE_FB_LINK } from '@/lib/constants'
 
 const paragraphs = [
-  'Gracias por acompañar a Dulce Fabiola Rodríguez Miranda y José Eduardo José en este día tan importante, así como a Julieta José Rodríguez al celebrar su bautizo.',
+  'Gracias por acompañar a Dulce Fabiola Rodríguez Miranda y José Eduardo José Hernández en este día tan importante, así como a Julieta José Rodríguez al celebrar su bautizo.',
   'Hemos creado este espacio especialmente para ti, donde podrás conocer todos los detalles del evento que se llevará a cabo el próximo 25 de abril de 2026 en Beach Club.',
   'Este sitio tiene como finalidad ayudarnos a tener una mejor organización, por lo que te agradecemos mucho el tiempo que te tomes para completar la información solicitada.',
   'Además, si lo deseas, puedes unirte a nuestro grupo de WhatsApp (no es obligatorio), donde estaremos compartiendo información adicional en caso de ser necesario.',
@@ -17,10 +17,10 @@ export function Welcome() {
   return (
     <Section id="welcome" subtitle="Tu presencia es nuestro mejor regalo" title="Bienvenidos">
       <Card>
-        <div className="prose prose-stone mx-auto max-w-none prose-p:leading-relaxed prose-p:text-stone-600">
+        <div className="mx-auto max-w-none space-y-5">
           {paragraphs.map((p, i) => (
             <motion.p
-              className="mb-4 font-sans text-base sm:text-lg"
+              className="font-sans text-base leading-relaxed text-stone-600 sm:text-lg"
               initial={{ opacity: 0, y: 8 }}
               key={i}
               transition={{ delay: i * 0.08 }}
@@ -31,7 +31,7 @@ export function Welcome() {
             </motion.p>
           ))}
         </div>
-        <p className="mt-6 text-center">
+        <p className="mt-8 text-center">
           <a
             className="inline-flex items-center gap-2 text-gold-600 underline decoration-gold-400 underline-offset-2 hover:text-gold-700"
             href={VENUE_FB_LINK}

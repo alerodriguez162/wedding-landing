@@ -40,14 +40,14 @@ export default function AccesoPage() {
         <p className="mt-2 text-center text-sm text-stone-500">
           Introduce la contraseña que te compartieron para entrar.
         </p>
-        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
-          <div>
-            <label className="label block" htmlFor="site-password">
+        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label className="label" htmlFor="site-password">
               Contraseña
             </label>
             <input
               autoFocus
-              className="input-field mt-1 w-full"
+              className="input-field w-full"
               disabled={loading}
               id="site-password"
               placeholder="••••••••"
@@ -55,28 +55,23 @@ export default function AccesoPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            {error && (
+              <p className="form-error" role="alert">
+                {error}
+              </p>
+            )}
           </div>
-          {error && (
-            <p className="text-sm text-red-600" role="alert">
-              {error}
-            </p>
-          )}
-          <button
-            className="btn-primary w-full py-3"
-            disabled={loading}
-            type="submit"
-          >
-            {loading ? 'Comprobando…' : 'Entrar'}
-          </button>
+          <div className="pt-1">
+            <button className="btn-primary w-full py-3" disabled={loading} type="submit">
+              {loading ? 'Comprobando…' : 'Entrar'}
+            </button>
+          </div>
         </form>
         <p className="mt-6 text-center text-xs text-stone-400">
           Boda y Bautizo · Sitio privado para invitados
         </p>
       </div>
-      <Link
-        className="mt-6 text-sm text-stone-500 underline hover:text-stone-700"
-        href="/"
-      >
+      <Link className="mt-6 text-sm text-stone-500 underline hover:text-stone-700" href="/">
         Volver al inicio
       </Link>
     </div>

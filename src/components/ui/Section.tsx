@@ -16,7 +16,7 @@ export function Section({ id, title, subtitle, children, className = '' }: Secti
       <div className="mx-auto max-w-3xl">
         {(title || subtitle) && (
           <motion.header
-            className="mb-10 text-center"
+            className="mb-8 text-center sm:mb-10"
             initial={{ opacity: 0, y: 12 }}
             transition={{ duration: 0.4 }}
             viewport={{ once: true, margin: '-50px' }}
@@ -27,7 +27,11 @@ export function Section({ id, title, subtitle, children, className = '' }: Secti
                 {title}
               </h2>
             )}
-            {subtitle && <p className="mt-2 font-sans text-lg text-stone-600">{subtitle}</p>}
+            {subtitle && (
+              <p className="mt-3 max-w-2xl mx-auto font-sans text-lg leading-relaxed text-stone-600">
+                {subtitle}
+              </p>
+            )}
           </motion.header>
         )}
         <motion.div

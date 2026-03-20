@@ -274,8 +274,7 @@ export default function AdminPage() {
                     <tr className="border-b border-sand-200 text-left">
                       <th className="p-2">Remitente</th>
                       <th className="p-2">Asistente</th>
-                      <th className="p-2">Plato adulto</th>
-                      <th className="p-2">Plato niño</th>
+                      <th className="p-2">Voto (plato)</th>
                       <th className="p-2">Fecha</th>
                     </tr>
                   </thead>
@@ -285,7 +284,6 @@ export default function AdminPage() {
                         <td className="p-2">{String(m.senderName)}</td>
                         <td className="p-2">{String(m.attendeeName || '-')}</td>
                         <td className="p-2">{String(m.adultMainDish)}</td>
-                        <td className="p-2">{String(m.kidsMainDish || '-')}</td>
                         <td className="p-2 text-stone-500">
                           {new Date(String(m.createdAt)).toLocaleString('es-MX')}
                         </td>
@@ -314,8 +312,9 @@ export default function AdminPage() {
                       <th className="p-2">Personas</th>
                       <th className="p-2">Llegada</th>
                       <th className="p-2">Salida</th>
-                      <th className="p-2">Habitación</th>
-                      <th className="p-2">Total</th>
+                      <th className="p-2">Habitación(es)</th>
+                      <th className="p-2">Detalle</th>
+                      <th className="p-2">Compartir</th>
                       <th className="p-2">Estado pago</th>
                       <th className="p-2">Acción</th>
                     </tr>
@@ -336,13 +335,15 @@ export default function AdminPage() {
                             : '-'}
                         </td>
                         <td className="p-2">
-                          {String(r.willingToShare ? 'Compartir' : r.selectedRoomType || '-')}
+                          {r.roomsNeeded != null ? String(r.roomsNeeded) : '-'}
                         </td>
-                        <td className="p-2">
-                          {r.estimatedTotal != null
-                            ? `$${Number(r.estimatedTotal).toLocaleString()}`
-                            : '-'}
+                        <td
+                          className="p-2 max-w-[220px] truncate text-xs"
+                          title={String(r.roomBreakdown || '')}
+                        >
+                          {r.roomBreakdown ? String(r.roomBreakdown) : '-'}
                         </td>
+                        <td className="p-2">{r.willingToShare ? 'Sí' : 'No'}</td>
                         <td className="p-2">{String(r.paymentStatus)}</td>
                         <td className="p-2">
                           <select

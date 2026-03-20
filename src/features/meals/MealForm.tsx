@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 import { mealSelectionSchema, type MealSelectionInput } from './meal-schema'
-import { ADULT_MAIN_DISHES, KIDS_MAIN_DISHES } from '@/lib/menu-options'
+import { ADULT_MAIN_DISHES } from '@/lib/menu-options'
 
 export function MealForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -42,124 +42,119 @@ export function MealForm() {
   }
 
   return (
-    <Section id="meals" subtitle="Ayúdanos a preparar tu menú" title="Elección de platillo">
+    <Section id="meals" subtitle="Ayúdanos a elegir el menú" title="Votación de platillo">
       <Card>
-        <p className="mb-6 text-stone-600">
-          Indica el plato fuerte para cada persona. Si envías la selección de varios asistentes,
-          repite el formulario o indica en notas. El nombre del remitente nos ayuda a identificar
-          quién envió la información.
-        </p>
-
-        {status === 'success' && (
-          <div className="mb-6 rounded-xl bg-green-50 p-4 text-green-800">
-            Gracias. Tu selección se guardó correctamente.
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="mb-6 rounded-xl bg-red-50 p-4 text-red-800">{errorMessage}</div>
-        )}
-
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label className="label" htmlFor="senderName">
-              Nombre de quien envía
-            </label>
-            <input
-              className="input-field mt-1"
-              id="senderName"
-              placeholder="Tu nombre"
-              {...register('senderName')}
-            />
-            {errors.senderName && (
-              <p className="mt-1 text-sm text-red-600">{errors.senderName.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="label" htmlFor="attendeeName">
-              Nombre del asistente (opcional)
-            </label>
-            <input
-              className="input-field mt-1"
-              id="attendeeName"
-              placeholder="Si es diferente al remitente"
-              {...register('attendeeName')}
-            />
-          </div>
-
-          <div>
-            <p className="label mb-2 block">Plato fuerte adulto</p>
-            <p className="mb-3 text-sm text-stone-500">
-              Todos incluyen: puré de zanahoria con 4 quesos y ensalada fresca.
+        <div className="space-y-6">
+          <div className="space-y-4">
+            <p className="leading-relaxed text-stone-600">
+              Esto es una <strong>votación</strong>, no una elección individual: al final se servirán
+              los <strong>dos platillos más votados</strong> para todos los asistentes. Vota por tu
+              favorito.
             </p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {ADULT_MAIN_DISHES.map((opt) => (
-                <label
-                  className="flex cursor-pointer items-center gap-4 rounded-xl border border-sand-200 bg-white p-4 has-[:checked]:border-gold-500 has-[:checked]:ring-2 has-[:checked]:ring-gold-500/30"
-                  key={opt.id}
-                >
-                  <input
-                    type="radio"
-                    value={opt.id}
-                    {...register('adultMainDish')}
-                    className="shrink-0"
-                  />
-                  <span className="font-medium text-stone-800">{opt.label}</span>
-                </label>
-              ))}
+            <p className="text-sm leading-relaxed text-stone-500">
+              Si envías la votación de varias personas, repite el formulario o indícalo en notas. El
+              nombre del remitente nos ayuda a identificar quién envió la información.
+            </p>
+          </div>
+
+          {status === 'success' && (
+            <div className="rounded-xl bg-green-50 p-4 leading-relaxed text-green-800">
+              Gracias. Tu voto se guardó correctamente.
             </div>
-            {errors.adultMainDish && (
-              <p className="mt-1 text-sm text-red-600">{errors.adultMainDish.message}</p>
-            )}
-          </div>
-
-          <div>
-            <p className="label mb-2 block">Plato fuerte niño (opcional)</p>
-            <p className="mb-3 text-sm text-stone-500">Mismo menú. Indica solo si hay menores.</p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {KIDS_MAIN_DISHES.map((opt) => (
-                <label
-                  className="flex cursor-pointer items-center gap-4 rounded-xl border border-sand-200 bg-white p-4 has-[:checked]:border-gold-500 has-[:checked]:ring-2 has-[:checked]:ring-gold-500/30"
-                  key={opt.id}
-                >
-                  <input
-                    type="radio"
-                    value={opt.id}
-                    {...register('kidsMainDish')}
-                    className="shrink-0"
-                  />
-                  <span className="font-medium text-stone-800">{opt.label}</span>
-                </label>
-              ))}
+          )}
+          {status === 'error' && (
+            <div className="rounded-xl bg-red-50 p-4 leading-relaxed text-red-800">
+              {errorMessage}
             </div>
-          </div>
+          )}
 
-          <div>
-            <label className="label" htmlFor="notes">
-              Notas (opcional)
-            </label>
-            <textarea
-              className="input-field mt-1"
-              id="notes"
-              placeholder="Alergias, más asistentes, etc."
-              rows={2}
-              {...register('notes')}
-            />
-          </div>
+          <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-field">
+              <label className="label" htmlFor="senderName">
+                Nombre de quien envía
+              </label>
+              <input
+                className="input-field"
+                id="senderName"
+                placeholder="Tu nombre"
+                {...register('senderName')}
+              />
+              {errors.senderName && (
+                <p className="form-error" role="alert">
+                  {errors.senderName.message}
+                </p>
+              )}
+            </div>
 
-          <p className="text-sm text-stone-500">
-            Las imágenes del menú se pueden agregar en una próxima actualización. Por ahora solo
-            selecciona los platillos.
-          </p>
+            <div className="form-field">
+              <label className="label" htmlFor="attendeeName">
+                Nombre del asistente (opcional)
+              </label>
+              <input
+                className="input-field"
+                id="attendeeName"
+                placeholder="Si es diferente al remitente"
+                {...register('attendeeName')}
+              />
+            </div>
 
-          <button
-            className="btn-primary w-full sm:w-auto"
-            disabled={status === 'loading'}
-            type="submit"
-          >
-            {status === 'loading' ? 'Enviando…' : 'Enviar selección'}
-          </button>
-        </form>
+            <div className="form-field">
+              <p className="label">Tu voto — plato fuerte</p>
+              <p className="text-sm leading-relaxed text-stone-500" id="meal-vote-hint">
+                Todos incluyen: puré de zanahoria con 4 quesos y ensalada fresca.
+              </p>
+              <div
+                aria-describedby="meal-vote-hint"
+                aria-label="Opciones de plato fuerte"
+                className="grid gap-3 sm:grid-cols-2 sm:gap-4"
+                role="radiogroup"
+              >
+                {ADULT_MAIN_DISHES.map((opt) => (
+                  <label
+                    className="flex cursor-pointer items-center gap-4 rounded-xl border border-sand-200 bg-white p-4 has-[:checked]:border-gold-500 has-[:checked]:ring-2 has-[:checked]:ring-gold-500/30"
+                    key={opt.id}
+                  >
+                    <input
+                      type="radio"
+                      value={opt.id}
+                      {...register('adultMainDish')}
+                      className="shrink-0"
+                    />
+                    <span className="font-medium text-stone-800">{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+              {errors.adultMainDish && (
+                <p className="form-error" role="alert">
+                  {errors.adultMainDish.message}
+                </p>
+              )}
+            </div>
+
+            <div className="form-field">
+              <label className="label" htmlFor="notes">
+                Notas (opcional)
+              </label>
+              <textarea
+                className="input-field min-h-[5rem]"
+                id="notes"
+                placeholder="Alergias, más asistentes, etc."
+                rows={3}
+                {...register('notes')}
+              />
+            </div>
+
+            <div className="pt-1">
+              <button
+                className="btn-primary w-full sm:w-auto"
+                disabled={status === 'loading'}
+                type="submit"
+              >
+                {status === 'loading' ? 'Enviando…' : 'Enviar voto'}
+              </button>
+            </div>
+          </form>
+        </div>
       </Card>
     </Section>
   )

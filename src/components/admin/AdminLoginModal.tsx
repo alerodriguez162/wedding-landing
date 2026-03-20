@@ -110,9 +110,9 @@ export function AdminLoginModal({ isOpen, onClose, onSuccess }: AdminLoginModalP
         <p className="mt-2 text-center text-sm text-stone-500">
           Introduce tu contraseña para acceder al panel
         </p>
-        <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
-          <div>
-            <label className="label mb-2 block" htmlFor="admin-login-password">
+        <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label className="label" htmlFor="admin-login-password">
               Contraseña
             </label>
             <input
@@ -128,7 +128,7 @@ export function AdminLoginModal({ isOpen, onClose, onSuccess }: AdminLoginModalP
             />
           </div>
           {loginError && (
-            <div className="flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="flex items-start gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm leading-relaxed text-red-700">
               <svg
                 className="h-5 w-5 shrink-0"
                 fill="none"

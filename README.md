@@ -91,8 +91,8 @@ prisma/
 
 ## Funcionalidades
 
-- **Landing:** Hero con countdown, bienvenida, elección de platillo, vuelos, hospedaje (con inventario de habitaciones), traslados, maquillaje/peinado, álbum de fotos, contacto, CTA WhatsApp.
-- **Hospedaje:** Lógica real de disponibilidad; al reservar se decrementa el inventario; opción “compartir habitación” para 1 adulto; instrucciones de pago/apartado; listado en admin.
+- **Landing:** Hero con countdown, bienvenida, programa (próximamente), mesa de regalos, dress code, votación de platillos, vuelos, hospedaje (personas y habitaciones), traslados, maquillaje/peinado, álbum de fotos, contacto, CTA WhatsApp.
+- **Hospedaje:** Solicitud con personas, número de habitaciones y detalle opcional; opción compartir; instrucciones de pago; listado en admin.
 - **Admin:** Login por contraseña, listados de platillos, hospedaje, habitaciones (editar disponibilidad/activo), maquillaje, fotos; actualizar estado de pago; exportar CSV.
 
 ## Mejoras futuras sugeridas

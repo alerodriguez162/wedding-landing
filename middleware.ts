@@ -10,7 +10,12 @@ export async function middleware(request: NextRequest) {
   }
 
   const path = request.nextUrl.pathname
-  if (path === '/acceso' || path.startsWith('/api/site-auth') || path.startsWith('/_next') || path.includes('.')) {
+  if (
+    path === '/acceso' ||
+    path.startsWith('/api/site-auth') ||
+    path.startsWith('/_next') ||
+    path.includes('.')
+  ) {
     return NextResponse.next()
   }
 

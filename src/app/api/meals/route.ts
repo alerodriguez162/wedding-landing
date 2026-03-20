@@ -12,7 +12,7 @@ export async function POST(req: Request) {
         { status: 400 },
       )
     }
-    const { senderName, attendeeName, adultMainDish, kidsMainDish, notes } = parsed.data
+    const { senderName, attendeeName, adultMainDish, notes } = parsed.data
     const imageUrls = Array.isArray(body.imageUrls) ? body.imageUrls : []
 
     await prisma.mealSelection.create({
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         senderName: senderName.trim(),
         attendeeName: attendeeName?.trim() || null,
         adultMainDish,
-        kidsMainDish: kidsMainDish || null,
+        kidsMainDish: null,
         imageUrls,
         notes: notes?.trim() || null,
       },

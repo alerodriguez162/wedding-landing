@@ -5,10 +5,17 @@ import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 
 const tips = [
-  { title: 'Aeropuerto sugerido', text: 'Puerto Escondido' },
   {
-    title: 'Aerolínea recomendada',
-    text: 'VivaAerobus (suele ser la más económica para estas fechas)',
+    title: 'Aeropuerto principal recomendado',
+    text: 'Huatulco (HUX) — suele ser la opción más práctica para conectar con traslados hacia la zona del evento.',
+  },
+  {
+    title: 'Alternativa',
+    text: 'También puedes volar a Puerto Escondido (PXM) si te conviene más el horario o el precio.',
+  },
+  {
+    title: 'Aerolínea',
+    text: 'VivaAerobus suele ser la más económica para estas fechas (revisa también otras aerolíneas).',
   },
   { title: 'Consejo', text: 'Reserva con anticipación para mejores precios y disponibilidad.' },
 ]
@@ -17,10 +24,10 @@ export function Flights() {
   return (
     <Section id="flights" subtitle="Recomendaciones para tu llegada" title="Vuelos">
       <Card>
-        <p className="mb-6 text-center font-sans text-stone-600">
-          Te sugerimos llegar al aeropuerto de <strong>Puerto Escondido</strong>. Para las fechas
-          del evento,
-          <strong> VivaAerobus</strong> suele ofrecer las tarifas más económicas.
+        <p className="mb-8 text-center font-sans leading-relaxed text-stone-600">
+          Te sugerimos llegar al aeropuerto de <strong>Huatulco</strong>. Si te conviene más,
+          también puedes llegar a <strong>Puerto Escondido</strong>. Para las fechas del evento,{' '}
+          <strong>VivaAerobus</strong> suele ofrecer tarifas económicas — compara opciones.
         </p>
         <ul className="space-y-4">
           {tips.map((item, i) => (

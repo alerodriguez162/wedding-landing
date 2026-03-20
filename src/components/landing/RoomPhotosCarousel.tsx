@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import Script from 'next/script'
 import { ROOM_PHOTOS_FACEBOOK_POST_URLS } from '@/lib/constants'
 
-const FB_SDK_URL =
-  'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v21.0'
+const FB_SDK_URL = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v21.0'
 
 declare global {
   interface Window {
@@ -47,13 +46,9 @@ export function RoomPhotosCarousel() {
   return (
     <>
       <div id="fb-root" />
-      <Script
-        src={FB_SDK_URL}
-        strategy="afterInteractive"
-        onLoad={parseEmbeds}
-      />
-      <div className="mb-6">
-        <p className="mb-3 text-sm font-medium text-stone-700">
+      <Script src={FB_SDK_URL} strategy="afterInteractive" onLoad={parseEmbeds} />
+      <div>
+        <p className="mb-4 text-sm font-medium text-stone-700">
           Fotos de las habitaciones (desde Facebook)
         </p>
         <div className="relative overflow-hidden rounded-xl border border-sand-200 bg-sand-50/50">
@@ -68,12 +63,7 @@ export function RoomPhotosCarousel() {
                 key={href}
                 style={{ width: '100%' }}
               >
-                <div
-                  className="fb-post"
-                  data-href={href}
-                  data-show-text="false"
-                  data-width="500"
-                />
+                <div className="fb-post" data-href={href} data-show-text="false" data-width="500" />
               </div>
             ))}
           </div>
@@ -85,12 +75,7 @@ export function RoomPhotosCarousel() {
                 type="button"
                 onClick={goPrev}
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     d="M15 19l-7-7 7-7"
                     strokeLinecap="round"
@@ -105,12 +90,7 @@ export function RoomPhotosCarousel() {
                 type="button"
                 onClick={goNext}
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     d="M9 5l7 7-7 7"
                     strokeLinecap="round"
@@ -124,9 +104,7 @@ export function RoomPhotosCarousel() {
                   <button
                     aria-label={`Ir a foto ${i + 1}`}
                     className={`h-2 rounded-full transition ${
-                      i === currentIndex
-                        ? 'w-6 bg-gold-500'
-                        : 'w-2 bg-sand-300 hover:bg-sand-400'
+                      i === currentIndex ? 'w-6 bg-gold-500' : 'w-2 bg-sand-300 hover:bg-sand-400'
                     }`}
                     key={i}
                     type="button"
