@@ -2,8 +2,8 @@
 
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
-
-const PINTEREST_INSPIRATION = 'https://pin.it/9P7cj0A70'
+import { PinterestBoardEmbed } from '@/components/landing/PinterestBoardEmbed'
+import { PINTEREST_BOARD_URL, PINTEREST_SHARE_URL } from '@/lib/constants'
 
 export function DressCode() {
   return (
@@ -14,18 +14,9 @@ export function DressCode() {
           Nuestra inspiración es un estilo bohemio chic, fresco pero sofisticado.
         </p>
 
-        <div className="mb-8 space-y-2">
-          <p className="font-medium text-stone-800">✨ Inspírate aquí:</p>
-          <p>
-            <a
-              className="text-gold-600 underline hover:text-gold-700"
-              href={PINTEREST_INSPIRATION}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Tablero en Pinterest
-            </a>
-          </p>
+        <div className="mb-8">
+          <p className="mb-4 font-medium text-stone-800">✨ Inspírate con nuestro tablero</p>
+          <PinterestBoardEmbed boardUrl={PINTEREST_BOARD_URL} shareUrl={PINTEREST_SHARE_URL} />
         </div>
 
         <div className="space-y-8">

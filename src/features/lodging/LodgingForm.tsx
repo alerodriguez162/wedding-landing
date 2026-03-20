@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
-import { RoomPhotosCarousel } from '@/components/landing/RoomPhotosCarousel'
+import { RoomPhotosLinks } from '@/components/landing/RoomPhotosLinks'
 import { lodgingSchema, type LodgingInput } from './lodging-schema'
 import { PAYMENT_INSTRUCTIONS } from '@/lib/constants'
 import { differenceInDays } from 'date-fns'
@@ -83,7 +83,7 @@ export function LodgingForm() {
     <Section id="lodging" subtitle="Beach Club" title="Hospedaje">
       <Card>
         <div className="space-y-6">
-          <RoomPhotosCarousel />
+          <RoomPhotosLinks />
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium leading-relaxed text-amber-800">
             Solo se deben considerar los confirmados con los novios. No habrá excepciones.
           </p>

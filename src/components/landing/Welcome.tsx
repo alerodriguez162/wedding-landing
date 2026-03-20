@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
-import { VENUE_FB_LINK } from '@/lib/constants'
+import { VENUE_PUBLIC_LINK } from '@/lib/constants'
 
 const paragraphs = [
   'Gracias por acompañar a Dulce Fabiola Rodríguez Miranda y José Eduardo José Hernández en este día tan importante, así como a Julieta José Rodríguez al celebrar su bautizo.',
@@ -34,11 +34,11 @@ export function Welcome() {
         <p className="mt-8 text-center">
           <a
             className="inline-flex items-center gap-2 text-gold-600 underline decoration-gold-400 underline-offset-2 hover:text-gold-700"
-            href={VENUE_FB_LINK}
+            href={VENUE_PUBLIC_LINK}
             rel="noopener noreferrer"
             target="_blank"
           >
-            Ver Beach Club en Facebook
+            Ver más del Beach Club
             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"

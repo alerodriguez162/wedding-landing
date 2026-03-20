@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { EVENT_DATE, VENUE_NAME } from '@/lib/constants'
+import { EVENT_DATE, EVENT_DATE_DISPLAY_ES, VENUE_NAME } from '@/lib/constants'
 
-function getCountdown() {
+type Countdown = { days: number; hours: number; minutes: number; seconds: number }
+
+function getCountdown(): Countdown {
   const now = new Date()
   const remainingMs = EVENT_DATE.getTime() - now.getTime()
   if (remainingMs <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
@@ -16,13 +18,19 @@ function getCountdown() {
   }
 }
 
+const EMPTY_COUNTDOWN: Countdown = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+
 export function Hero() {
-  const [timeLeft, setTimeLeft] = useState(getCountdown())
+  /** null hasta montar en el cliente: evita error de hidratación (servidor vs cliente en otro segundo). */
+  const [timeLeft, setTimeLeft] = useState<Countdown | null>(null)
 
   useEffect(() => {
+    setTimeLeft(getCountdown())
     const intervalId = setInterval(() => setTimeLeft(getCountdown()), 1000)
     return () => clearInterval(intervalId)
   }, [])
+
+  const display = timeLeft ?? EMPTY_COUNTDOWN
 
   const scrollToWelcome = () => {
     document.getElementById('welcome')?.scrollIntoView({ behavior: 'smooth' })
@@ -49,20 +57,15 @@ export function Hero() {
           <span className="text-gold-600">y el Bautizo</span>
         </h1>
         <p className="mt-6 font-sans text-xl text-stone-600">
-          {VENUE_NAME} ·{' '}
-          {EVENT_DATE.toLocaleDateString('es-MX', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
+          {VENUE_NAME} · {EVENT_DATE_DISPLAY_ES}
         </p>
 
         <div className="mx-auto mt-10 grid max-w-md grid-cols-4 gap-3 sm:gap-4">
           {[
-            { value: timeLeft.days, label: 'Días' },
-            { value: timeLeft.hours, label: 'Horas' },
-            { value: timeLeft.minutes, label: 'Min' },
-            { value: timeLeft.seconds, label: 'Seg' },
+            { value: display.days, label: 'Días' },
+            { value: display.hours, label: 'Horas' },
+            { value: display.minutes, label: 'Min' },
+            { value: display.seconds, label: 'Seg' },
           ].map(({ value, label }) => (
             <div
               className="rounded-xl border border-sand-200 bg-white/80 py-3 shadow-sm"

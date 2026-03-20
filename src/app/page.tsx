@@ -16,9 +16,9 @@ import { WhatsAppCta } from '@/components/landing/WhatsAppCta'
 
 export default function Home() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-sand-50">
       <Nav />
-      <main className="pb-4 sm:pb-6">
+      <main className="flex-1 pb-4 sm:pb-6">
         <Hero />
         <Welcome />
         <WeddingProgram />
@@ -34,6 +34,6 @@ export default function Home() {
         <WhatsAppCta />
       </main>
       <Footer />
-    </>
+    </div>
   )
 }

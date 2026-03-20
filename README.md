@@ -40,8 +40,13 @@ Abre [http://localhost:3000](http://localhost:3000). El panel de administración
 | --------------------------------- | ------------------------------------------------ |
 | `DATABASE_URL`                    | URL de conexión PostgreSQL                       |
 | `ADMIN_PASSWORD`                  | Contraseña del panel admin                       |
-| `NEXT_PUBLIC_WHATSAPP_GROUP_LINK` | (Opcional) Enlace del grupo de WhatsApp          |
+| `ADMIN_JWT_SECRET`                | Secreto JWT del panel admin (≥32 caracteres)      |
+| `SITE_PASSWORD`                   | (Opcional) Sitio privado: contraseña para invitados |
 | `NEXT_PUBLIC_SITE_URL`            | (Opcional) URL pública del sitio para enlaces/QR |
+
+**Contenido de la landing** (fechas, nombres, venue, WhatsApp, mesas de regalos, Pinterest, contactos, textos SEO, etc.):  
+todas las variables `NEXT_PUBLIC_*` documentadas en **`.env.example`** (bloque “Landing pública”).  
+Si no defines una variable, se usa el valor por defecto en `src/lib/constants.ts` (`SITE_DEFAULTS`).
 
 ## Despliegue en Vercel
 
@@ -59,7 +64,7 @@ El proyecto incluye `vercel.json` con el comando de build ya configurado (`prism
    npx prisma db push
    npx prisma db seed
    ```
-5. Opcionales: `NEXT_PUBLIC_SITE_URL` (URL final del sitio), `NEXT_PUBLIC_WHATSAPP_GROUP_LINK`, `NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS`.
+5. Opcionales: copia el bloque de **`.env.example`** (Landing pública) a las variables de Vercel para personalizar el evento sin cambiar código; o deja solo `DATABASE_URL`/`ADMIN_*` y se usarán los valores por defecto del código.
 
 ## Estructura del proyecto
 

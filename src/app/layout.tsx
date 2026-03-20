@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Outfit } from 'next/font/google'
+import {
+  SITE_METADATA_DESCRIPTION,
+  SITE_METADATA_TITLE,
+  SITE_OG_DESCRIPTION,
+} from '@/lib/constants'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -17,12 +22,11 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: 'Dulce Fabiola & José Eduardo | Boda y Bautizo',
-  description:
-    'Celebra con nosotros el 25 de abril de 2026 en Beach Club. Boda de Dulce Fabiola Rodríguez Miranda y José Eduardo José, y bautizo de Julieta José Rodríguez.',
+  title: SITE_METADATA_TITLE,
+  description: SITE_METADATA_DESCRIPTION,
   openGraph: {
-    title: 'Dulce Fabiola & José Eduardo | Boda y Bautizo',
-    description: '25 de abril de 2026 · Beach Club',
+    title: SITE_METADATA_TITLE,
+    description: SITE_OG_DESCRIPTION,
     type: 'website',
   },
   twitter: { card: 'summary_large_image' },
