@@ -1,11 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { AdminLoginModal } from '@/components/admin/AdminLoginModal'
+import { getAdultDishLabel } from '@/lib/menu-options'
+import { getMakeupServiceLabel } from '@/lib/admin-labels'
 
-type Tab = 'meals' | 'lodging' | 'rooms' | 'makeup' | 'photos'
+type Tab = 'meals' | 'lodging' | 'makeup'
 
 export default function AdminPage() {
   const [auth, setAuth] = useState<boolean | null>(null)
@@ -13,9 +14,7 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>('meals')
   const [meals, setMeals] = useState<Array<Record<string, unknown>>>([])
   const [lodging, setLodging] = useState<Array<Record<string, unknown>>>([])
-  const [rooms, setRooms] = useState<Array<Record<string, unknown>>>([])
   const [makeup, setMakeup] = useState<Array<Record<string, unknown>>>([])
-  const [photos, setPhotos] = useState<Array<Record<string, unknown>>>([])
 
   useEffect(() => {
     fetch('/api/admin/me', { credentials: 'include' })
@@ -46,17 +45,6 @@ export default function AdminPage() {
     if (id) updatePayment(id, e.target.value)
   }
 
-  const handleRoomInventoryBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const id = e.target.dataset.id
-    const v = parseInt(e.target.value, 10)
-    if (id && !Number.isNaN(v) && v >= 0) updateRoom(id, { totalAvailable: v })
-  }
-
-  const handleRoomActiveChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const id = e.target.dataset.id
-    if (id) updateRoom(id, { active: e.target.checked })
-  }
-
   const loadData = async (t: Tab) => {
     const cred = { credentials: 'include' as RequestCredentials }
     if (t === 'meals') {
@@ -65,15 +53,9 @@ export default function AdminPage() {
     } else if (t === 'lodging') {
       const r = await fetch('/api/admin/data/lodging', cred)
       if (r.ok) setLodging(await r.json())
-    } else if (t === 'rooms') {
-      const r = await fetch('/api/admin/data/rooms', cred)
-      if (r.ok) setRooms(await r.json())
     } else if (t === 'makeup') {
       const r = await fetch('/api/admin/data/makeup', cred)
       if (r.ok) setMakeup(await r.json())
-    } else if (t === 'photos') {
-      const r = await fetch('/api/admin/data/photos', cred)
-      if (r.ok) setPhotos(await r.json())
     }
   }
 
@@ -89,16 +71,6 @@ export default function AdminPage() {
       credentials: 'include',
     })
     loadData('lodging')
-  }
-
-  const updateRoom = async (id: string, data: { totalAvailable?: number; active?: boolean }) => {
-    await fetch('/api/admin/data/rooms', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, ...data }),
-      credentials: 'include',
-    })
-    loadData('rooms')
   }
 
   if (auth === null) {
@@ -176,9 +148,7 @@ export default function AdminPage() {
   const tabs: { id: Tab; label: string }[] = [
     { id: 'meals', label: 'Platillos' },
     { id: 'lodging', label: 'Hospedaje' },
-    { id: 'rooms', label: 'Habitaciones' },
     { id: 'makeup', label: 'Maquillaje' },
-    { id: 'photos', label: 'Fotos' },
   ]
 
   return (
@@ -275,6 +245,7 @@ export default function AdminPage() {
                       <th className="p-2">Remitente</th>
                       <th className="p-2">Asistente</th>
                       <th className="p-2">Voto (plato)</th>
+                      <th className="p-2">Notas</th>
                       <th className="p-2">Fecha</th>
                     </tr>
                   </thead>
@@ -283,7 +254,18 @@ export default function AdminPage() {
                       <tr className="border-b border-sand-100" key={String(m.id)}>
                         <td className="p-2">{String(m.senderName)}</td>
                         <td className="p-2">{String(m.attendeeName || '-')}</td>
-                        <td className="p-2">{String(m.adultMainDish)}</td>
+                        <td className="p-2">
+                          <span className="font-medium text-stone-800">
+                            {getAdultDishLabel(String(m.adultMainDish))}
+                          </span>
+                          <span className="ml-1 text-xs text-stone-400">({String(m.adultMainDish)})</span>
+                        </td>
+                        <td
+                          className="p-2 max-w-[220px] truncate text-xs"
+                          title={m.notes ? String(m.notes) : ''}
+                        >
+                          {m.notes ? String(m.notes) : '—'}
+                        </td>
                         <td className="p-2 text-stone-500">
                           {new Date(String(m.createdAt)).toLocaleString('es-MX')}
                         </td>
@@ -309,14 +291,17 @@ export default function AdminPage() {
                   <thead>
                     <tr className="border-b border-sand-200 text-left">
                       <th className="p-2">Nombre</th>
-                      <th className="p-2">Personas</th>
+                      <th className="p-2">Total</th>
+                      <th className="p-2">Adultos</th>
+                      <th className="p-2">Niños</th>
                       <th className="p-2">Llegada</th>
                       <th className="p-2">Salida</th>
+                      <th className="p-2">Noches</th>
                       <th className="p-2">Habitación(es)</th>
                       <th className="p-2">Detalle</th>
                       <th className="p-2">Compartir</th>
+                      <th className="p-2">Notas</th>
                       <th className="p-2">Estado pago</th>
-                      <th className="p-2">Acción</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -324,6 +309,8 @@ export default function AdminPage() {
                       <tr className="border-b border-sand-100" key={String(r.id)}>
                         <td className="p-2">{String(r.name)}</td>
                         <td className="p-2">{String(r.numberOfPeople)}</td>
+                        <td className="p-2">{String(r.adults ?? '—')}</td>
+                        <td className="p-2">{String(r.children ?? '—')}</td>
                         <td className="p-2">
                           {r.arrivalDate
                             ? new Date(String(r.arrivalDate)).toLocaleDateString('es-MX')
@@ -334,17 +321,23 @@ export default function AdminPage() {
                             ? new Date(String(r.departureDate)).toLocaleDateString('es-MX')
                             : '-'}
                         </td>
+                        <td className="p-2">{r.nights != null ? String(r.nights) : '—'}</td>
                         <td className="p-2">
                           {r.roomsNeeded != null ? String(r.roomsNeeded) : '-'}
                         </td>
                         <td
-                          className="p-2 max-w-[220px] truncate text-xs"
+                          className="p-2 max-w-[180px] truncate text-xs"
                           title={String(r.roomBreakdown || '')}
                         >
                           {r.roomBreakdown ? String(r.roomBreakdown) : '-'}
                         </td>
                         <td className="p-2">{r.willingToShare ? 'Sí' : 'No'}</td>
-                        <td className="p-2">{String(r.paymentStatus)}</td>
+                        <td
+                          className="p-2 max-w-[220px] truncate text-xs"
+                          title={r.notes ? String(r.notes) : ''}
+                        >
+                          {r.notes ? String(r.notes) : '—'}
+                        </td>
                         <td className="p-2">
                           <select
                             className="rounded border border-sand-300 text-xs"
@@ -352,9 +345,9 @@ export default function AdminPage() {
                             value={String(r.paymentStatus)}
                             onChange={handlePaymentChange}
                           >
-                            <option value="pending">pending</option>
-                            <option value="paid">paid</option>
-                            <option value="cancelled">cancelled</option>
+                            <option value="pending">Pendiente</option>
+                            <option value="paid">Pagado</option>
+                            <option value="cancelled">Cancelado</option>
                           </select>
                         </td>
                       </tr>
@@ -362,57 +355,6 @@ export default function AdminPage() {
                   </tbody>
                 </table>
               </div>
-            )}
-          </div>
-        )}
-
-        {tab === 'rooms' && (
-          <div className="space-y-4">
-            <h2 className="font-semibold text-stone-800">Disponibilidad de habitaciones</h2>
-            {rooms.length === 0 ? (
-              <p className="text-stone-500">Sin registros</p>
-            ) : (
-              <ul className="space-y-3">
-                {rooms.map((r: Record<string, unknown>) => (
-                  <li
-                    className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-sand-200 p-4"
-                    key={String(r.id)}
-                  >
-                    <div>
-                      <p className="font-medium">{String(r.label)}</p>
-                      <p className="text-sm text-stone-500">
-                        ${Number(r.pricePerNight).toLocaleString()} / noche · Capacidad:{' '}
-                        {Number(r.capacity)} · Disponibles:{' '}
-                        {Number(r.totalAvailable) - Number(r.totalReserved)} de{' '}
-                        {Number(r.totalAvailable)}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <label className="flex items-center gap-2 text-sm">
-                        <span>Inventario:</span>
-                        <input
-                          className="w-20 rounded border border-sand-300 px-2 py-1"
-                          data-id={String(r.id)}
-                          defaultValue={Number(r.totalAvailable)}
-                          min={0}
-                          type="number"
-                          onBlur={handleRoomInventoryBlur}
-                        />
-                      </label>
-                      <label className="flex items-center gap-2 text-sm">
-                        <input
-                          className="shrink-0"
-                          data-id={String(r.id)}
-                          defaultChecked={r.active === true}
-                          type="checkbox"
-                          onChange={handleRoomActiveChange}
-                        />
-                        Activa
-                      </label>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             )}
           </div>
         )}
@@ -438,7 +380,7 @@ export default function AdminPage() {
                       <tr className="border-b border-sand-100" key={String(m.id)}>
                         <td className="p-2">{String(m.name)}</td>
                         <td className="p-2">{String(m.peopleCount)}</td>
-                        <td className="p-2">{String(m.serviceType)}</td>
+                        <td className="p-2">{getMakeupServiceLabel(String(m.serviceType))}</td>
                         <td className="p-2 text-stone-500">
                           {new Date(String(m.createdAt)).toLocaleString('es-MX')}
                         </td>
@@ -451,34 +393,6 @@ export default function AdminPage() {
           </div>
         )}
 
-        {tab === 'photos' && (
-          <div className="space-y-4">
-            <h2 className="font-semibold text-stone-800">Fotos subidas ({photos.length})</h2>
-            {photos.length === 0 ? (
-              <p className="text-stone-500">Sin fotos</p>
-            ) : (
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
-                {photos.map((p: Record<string, unknown>) => (
-                  <div
-                    className="relative h-32 overflow-hidden rounded-lg border border-sand-200"
-                    key={String(p.id)}
-                  >
-                    <Image
-                      fill
-                      alt={String(p.uploaderName || 'Foto')}
-                      className="object-cover"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                      src={String(p.imageUrl)}
-                    />
-                    <p className="p-2 text-xs text-stone-600">
-                      {String(p.uploaderName || 'Sin nombre')}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </div>
   )

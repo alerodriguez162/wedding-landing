@@ -10,7 +10,7 @@ const registries = [
   },
   {
     id: 'baptism' as const,
-    label: 'Bautizo',
+    label: 'Bautismo',
     url: GIFT_REGISTRY_BAPTISM_URL,
   },
 ]
@@ -19,8 +19,8 @@ export function GiftRegistry() {
   return (
     <Section id="gifts" subtitle="Tu cariño es nuestro mejor regalo" title="Mesa de regalos">
       <Card>
-        <p className="mb-8 text-center font-sans text-sm leading-relaxed text-stone-600">
-          Tenemos dos mesas en Liverpool: una para la boda y otra para el bautizo. Elige la que corresponda y
+        <p className="copy-justify mb-8 font-sans text-sm leading-relaxed text-stone-600">
+          Tenemos dos mesas en Liverpool: una para la boda y otra para el bautismo. Elige la que corresponda y
           ábrela en el sitio de Liverpool.
         </p>
 

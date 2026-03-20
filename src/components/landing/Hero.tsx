@@ -54,7 +54,7 @@ export function Hero() {
         <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight text-stone-800 sm:text-5xl md:text-6xl">
           Nuestra Boda
           <br />
-          <span className="text-gold-600">y el Bautizo</span>
+          <span className="text-gold-600">y el Bautismo</span>
         </h1>
         <p className="mt-6 font-sans text-xl text-stone-600">
           {VENUE_NAME} · {EVENT_DATE_DISPLAY_ES}

@@ -68,7 +68,7 @@ export default function AccesoPage() {
           </div>
         </form>
         <p className="mt-6 text-center text-xs text-stone-400">
-          Boda y Bautizo · Sitio privado para invitados
+          Boda y Bautismo · Sitio privado para invitados
         </p>
       </div>
       <Link className="mt-6 text-sm text-stone-500 underline hover:text-stone-700" href="/">

@@ -9,7 +9,7 @@ export type SiteContact = { name: string; phone: string }
 const SITE_DEFAULTS = {
   eventDateIso: '2026-04-25',
   eventDateDisplayEs: '25 de abril de 2026',
-  eventName: 'Boda y Bautizo',
+  eventName: 'Boda y Bautismo',
   venueName: 'Beach Club',
   venueFbLink: 'https://www.facebook.com/profile.php?id=100067222092732&locale=es_LA',
   whatsappGroupLink: 'https://chat.whatsapp.com/DKqJHVJHMOBKCnl2K0tBED',
@@ -38,10 +38,13 @@ Para apartar tu habitación, realiza una transferencia a la cuenta que se te ind
 Una vez confirmado el pago, tu reservación quedará confirmada.
 Si tienes dudas, contáctanos por WhatsApp.
 `.trim(),
-  siteTitle: 'Dulce Fabiola & José Eduardo | Boda y Bautizo',
+  siteTitle: 'Dulce Fabiola & José Eduardo | Boda y Bautismo',
   siteDescription:
-    'Celebra con nosotros el 25 de abril de 2026 en Beach Club. Boda de Dulce Fabiola Rodríguez Miranda y José Eduardo José, y bautizo de Julieta José Rodríguez.',
+    'Celebra con nosotros el 25 de abril de 2026 en Beach Club. Boda de Dulce Fabiola Rodríguez Miranda y José Eduardo José, y bautismo de Julieta José Rodríguez.',
   siteOgDescription: '25 de abril de 2026 · Beach Club',
+  /** Álbum compartido (Google Fotos). */
+  photosAlbumUrl:
+    'https://photos.google.com/share/AF1QipNOt-sRlXxTCkqGIXa-VCkh2XzbKY9zGLJzHZg36WyeiL0Ght0HOP2Z4xY4t5DPDg?key=M3lMcER3Z0c0MzNONW5nYWJRYmZTX3Uxc09ZRDhB',
 } as const
 
 function env(key: string): string | undefined {
@@ -142,3 +145,7 @@ export const SITE_METADATA_DESCRIPTION =
 
 export const SITE_OG_DESCRIPTION =
   env('NEXT_PUBLIC_SITE_OG_DESCRIPTION') ?? SITE_DEFAULTS.siteOgDescription
+
+/** Álbum de fotos del evento (Google Fotos u otro). Sobrescribe con NEXT_PUBLIC_PHOTOS_ALBUM_URL. */
+export const PHOTOS_ALBUM_URL =
+  env('NEXT_PUBLIC_PHOTOS_ALBUM_URL') ?? SITE_DEFAULTS.photosAlbumUrl
