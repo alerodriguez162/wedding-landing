@@ -1,8 +1,8 @@
 /**
  * Opciones del menú. Se pueden mover a BD o CMS más adelante.
- * Acompañamiento: puré de zanahoria con 4 quesos y ensalada fresca.
+ * Acompañamiento: puré de zanahoria con cuatro quesos y ensalada fresca.
  */
-const ACCOMPANIMENT = 'Acompañado de puré de zanahoria con 4 quesos y ensalada fresca'
+const ACCOMPANIMENT = 'Acompañado de puré de zanahoria con cuatro quesos y ensalada fresca'
 
 export const ADULT_MAIN_DISHES = [
   { id: 'camarones-gratinados', label: 'Camarones gratinados', accompaniment: ACCOMPANIMENT },

@@ -47,8 +47,7 @@ export function MealForm() {
         <div className="space-y-6">
           <div className="space-y-4">
             <p className="leading-relaxed text-stone-600">
-              Esto es una <strong>votación</strong>, no una elección individual: al final se servirá el{' '}
-              <strong>platillo más votado</strong> para todos los asistentes. Vota por tu favorito.
+              Esto es una <strong>votación</strong>, no una elección individual: al final se servirá el <strong>platillo más votado</strong> para todos los asistentes. Vota por tu favorito.
             </p>
             <p className="text-sm leading-relaxed text-stone-500">
               Si envías la votación de varias personas, repite el formulario o indícalo en notas. El
@@ -100,7 +99,7 @@ export function MealForm() {
             <div className="form-field">
               <p className="label">Tu voto — plato fuerte</p>
               <p className="text-sm leading-relaxed text-stone-500" id="meal-vote-hint">
-                Todos incluyen: puré de zanahoria con 4 quesos y ensalada fresca.
+                Todos incluyen: puré de zanahoria con cuatro quesos y ensalada fresca.
               </p>
               <div
                 aria-describedby="meal-vote-hint"

@@ -39,11 +39,13 @@ export function Transfers() {
                 <p className="mt-1 text-sm">Taxi directo del aeropuerto a Puerto Ángel</p>
               </div>
               <p className="text-sm">
-                📞 <strong>Taxi en Huatulco:</strong>{' '}
-                <a className="text-gold-600 underline" href="tel:+529581224362">
+                📞 <strong>Taxi en Huatulco:</strong> <a className="text-gold-600 underline" href="tel:+529581224362">
                   +52 1 958 122 4362
-                </a>{' '}
-                Don Ligorio José
+                </a> Don Ligorio José
+              </p>
+              <p className="text-sm text-stone-600">
+                Desde Huatulco, si se requiere el servicio de taxi hay que solicitarlo con
+                anticipación al señor Don Ligorio; dependerá de la disponibilidad.
               </p>
             </div>
           </section>

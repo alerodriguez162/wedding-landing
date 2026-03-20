@@ -8,9 +8,7 @@ export function RoomPhotosLinks() {
       <div className="rounded-xl border border-dashed border-sand-300 bg-sand-50/80 px-4 py-6 text-center text-sm text-stone-600">
         <p className="font-medium text-stone-700">Fotos de habitaciones</p>
         <p className="mt-2 text-xs text-stone-500">
-          Configura{' '}
-          <code className="rounded bg-sand-200 px-1 py-0.5 text-[0.75rem]">NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS</code>{' '}
-          (enlaces a publicaciones de Facebook, separados por coma).
+          Configura <code className="rounded bg-sand-200 px-1 py-0.5 text-[0.75rem]">NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS</code> (enlaces a publicaciones de Facebook, separados por coma).
         </p>
       </div>
     )

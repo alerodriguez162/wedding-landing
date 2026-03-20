@@ -30,28 +30,26 @@ export function Contact() {
         <ul className="space-y-4">
           {CONTACTS.filter((c) => c.phone).map((contact) => (
             <li
-              className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-sand-200 bg-sand-50/50 p-4"
+              className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-x-2 gap-y-0 rounded-xl border border-sand-200 bg-sand-50/50 p-3 sm:gap-x-3 sm:p-4"
               key={contact.name}
             >
-              <span className="font-semibold text-stone-800">{contact.name}</span>
-              <div className="flex items-center gap-2">
-                <button
-                  className="btn-secondary text-sm py-2 px-4"
-                  data-phone={contact.phone}
-                  type="button"
-                  onClick={handleCopyClick}
-                >
-                  Copiar número
-                </button>
-                <a
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2 text-sm font-medium text-white hover:bg-[#20bd5a]"
-                  href={formatWhatsApp(contact.phone)}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  WhatsApp
-                </a>
-              </div>
+              <span className="min-w-0 truncate font-semibold text-stone-800">{contact.name}</span>
+              <button
+                className="btn-secondary shrink-0 whitespace-nowrap px-2 py-2 text-xs sm:px-4 sm:text-sm"
+                data-phone={contact.phone}
+                type="button"
+                onClick={handleCopyClick}
+              >
+                Copiar número
+              </button>
+              <a
+                className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-[#25D366] px-2 py-2 text-xs font-medium text-white hover:bg-[#20bd5a] sm:px-4 sm:text-sm"
+                href={formatWhatsApp(contact.phone)}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                WhatsApp
+              </a>
             </li>
           ))}
         </ul>

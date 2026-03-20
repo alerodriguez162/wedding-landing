@@ -26,8 +26,7 @@ export function Flights() {
       <Card>
         <p className="mb-8 text-center font-sans leading-relaxed text-stone-600">
           Te sugerimos llegar al aeropuerto de <strong>Huatulco</strong>. Si te conviene más,
-          también puedes llegar a <strong>Puerto Escondido</strong>. Para las fechas del evento,{' '}
-          <strong>VivaAerobus</strong> suele ofrecer tarifas económicas — compara opciones.
+          también puedes llegar a <strong>Puerto Escondido</strong>. Para las fechas del evento, <strong>VivaAerobus</strong> suele ofrecer tarifas económicas — compara opciones.
         </p>
         <ul className="space-y-4">
           {tips.map((item, i) => (
