@@ -41,7 +41,18 @@ input[type='checkbox'] {
   border-radius: 0.25rem;
 }
 
+/**
+ * Texto justificado para bloques narrativos (invitaciones, bienvenida).
+ * En español mejora el bloque alineado a ambos márgenes; `hyphens` ayuda con cortes de palabra.
+ */
 @layer components {
+  .copy-justify {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: pretty;
+  }
+
   .section-padding {
     @apply px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24;
   }

@@ -157,7 +157,7 @@ export function AdminLoginModal({ isOpen, onClose, onSuccess }: AdminLoginModalP
           </button>
         </form>
         <p className="mt-6 text-center text-xs text-stone-400">
-          Boda y Bautizo · Acceso restringido
+          Boda y Bautismo · Acceso restringido
         </p>
       </div>
     </div>

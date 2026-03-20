@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Administración | Boda y Bautizo',
+  title: 'Administración | Boda y Bautismo',
   robots: 'noindex, nofollow',
 }
 

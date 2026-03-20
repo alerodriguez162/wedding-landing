@@ -29,3 +29,9 @@ export const KIDS_MAIN_DISHES = ADULT_MAIN_DISHES
 
 export type AdultDishId = (typeof ADULT_MAIN_DISHES)[number]['id']
 export type KidsDishId = (typeof KIDS_MAIN_DISHES)[number]['id']
+
+/** Etiqueta legible para admin / CSV (el id se guarda en BD). */
+export function getAdultDishLabel(id: string): string {
+  const found = ADULT_MAIN_DISHES.find((d) => d.id === id)
+  return found?.label ?? id
+}

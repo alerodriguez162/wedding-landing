@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { getAdminSession } from '@/lib/auth-admin'
 import { prisma } from '@/lib/prisma'
+import { getAdultDishLabel } from '@/lib/menu-options'
+import { getMakeupServiceLabel } from '@/lib/admin-labels'
 
 function escapeCsv(s: string): string {
   if (/[",\n\r]/.test(s)) return `"${s.replace(/"/g, '""')}"`
@@ -20,12 +22,13 @@ export async function GET(req: Request) {
     if (type === 'meals' || type === 'all') {
       const meals = await prisma.mealSelection.findMany({ orderBy: { createdAt: 'desc' } })
       rows.push('Selecciones de platillo')
-      rows.push('Remitente,Asistente,Voto (plato),Notas,Fecha')
+      rows.push('Remitente,Asistente,Plato,Plato (id),Notas,Fecha')
       for (const m of meals) {
         rows.push(
           [
             escapeCsv(m.senderName),
             escapeCsv(m.attendeeName || ''),
+            escapeCsv(getAdultDishLabel(m.adultMainDish)),
             escapeCsv(m.adultMainDish),
             escapeCsv(m.notes || ''),
             m.createdAt.toISOString(),
@@ -38,7 +41,7 @@ export async function GET(req: Request) {
       const lodging = await prisma.lodgingRequest.findMany({ orderBy: { createdAt: 'desc' } })
       rows.push('Solicitudes de hospedaje')
       rows.push(
-        'Nombre,Personas,Adultos,Niños,Llegada,Salida,Compartir,Habitaciones,Detalle habitaciones,Noches,Total,Estado pago,Fecha',
+        'Nombre,Personas,Adultos,Niños,Llegada,Salida,Compartir,Habitaciones,Detalle habitaciones,Noches,Total estimado,Estado pago,Notas,Fecha',
       )
       for (const r of lodging) {
         rows.push(
@@ -55,6 +58,7 @@ export async function GET(req: Request) {
             r.nights ?? '',
             r.estimatedTotal?.toString() ?? '',
             escapeCsv(r.paymentStatus),
+            escapeCsv(r.notes || ''),
             r.createdAt.toISOString(),
           ].join(','),
         )
@@ -64,12 +68,13 @@ export async function GET(req: Request) {
     if (type === 'makeup' || type === 'all') {
       const makeup = await prisma.makeupHairRequest.findMany({ orderBy: { createdAt: 'desc' } })
       rows.push('Maquillaje y peinado')
-      rows.push('Nombre,Personas,Servicio,Fecha')
+      rows.push('Nombre,Personas,Servicio,Servicio (id),Fecha')
       for (const m of makeup) {
         rows.push(
           [
             escapeCsv(m.name),
             m.peopleCount,
+            escapeCsv(getMakeupServiceLabel(m.serviceType)),
             escapeCsv(m.serviceType),
             m.createdAt.toISOString(),
           ].join(','),

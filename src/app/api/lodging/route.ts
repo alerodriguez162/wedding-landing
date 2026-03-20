@@ -33,7 +33,6 @@ export async function POST(req: Request) {
         arrivalDate: new Date(data.arrivalDate),
         departureDate: new Date(data.departureDate),
         willingToShare: data.willingToShare ?? false,
-        selectedRoomType: null,
         nights,
         estimatedTotal: null,
         paymentStatus: 'pending',

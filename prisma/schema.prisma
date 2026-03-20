@@ -19,6 +19,7 @@ model MealSelection {
   senderName     String
   attendeeName   String?
   adultMainDish  String
+  /// Legacy: el formulario ya no pide menú infantil; nuevas filas guardan null.
   kidsMainDish   String?
   imageUrls      String[] @default([])
   notes          String?
@@ -37,26 +38,12 @@ model LodgingRequest {
   arrivalDate      DateTime
   departureDate    DateTime
   willingToShare   Boolean  @default(false)
-  selectedRoomType String?
   nights           Int?
   estimatedTotal   Decimal? @db.Decimal(10, 2)
   paymentStatus    String   @default("pending")
   notes            String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
-}
-
-model RoomType {
-  id             String   @id @default(cuid())
-  roomType       String   @unique
-  label          String
-  capacity       Int
-  pricePerNight  Decimal  @db.Decimal(10, 2)
-  totalAvailable Int      @default(0)
-  totalReserved  Int      @default(0)
-  active         Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
 }
 
 model TransportInfo {
@@ -76,6 +63,7 @@ model MakeupHairRequest {
   updatedAt   DateTime @updatedAt
 }
 
+/// Legacy: la web ya no sube fotos al servidor; el álbum es externo (Google Fotos). Tabla conservada por si hay datos antiguos.
 model PhotoUpload {
   id           String   @id @default(cuid())
   uploaderName String?

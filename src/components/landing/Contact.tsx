@@ -24,7 +24,7 @@ export function Contact() {
   return (
     <Section id="contact" subtitle="Estamos para ayudarte" title="Dudas y contacto">
       <Card>
-        <p className="mb-8 text-center leading-relaxed text-stone-600">
+        <p className="copy-justify mb-8 leading-relaxed text-stone-600 sm:text-center">
           Si tienes alguna duda, contáctanos por WhatsApp o llámanos.
         </p>
         <ul className="space-y-4">

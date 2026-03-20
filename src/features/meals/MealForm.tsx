@@ -47,9 +47,8 @@ export function MealForm() {
         <div className="space-y-6">
           <div className="space-y-4">
             <p className="leading-relaxed text-stone-600">
-              Esto es una <strong>votación</strong>, no una elección individual: al final se servirán
-              los <strong>dos platillos más votados</strong> para todos los asistentes. Vota por tu
-              favorito.
+              Esto es una <strong>votación</strong>, no una elección individual: al final se servirá el{' '}
+              <strong>platillo más votado</strong> para todos los asistentes. Vota por tu favorito.
             </p>
             <p className="text-sm leading-relaxed text-stone-500">
               Si envías la votación de varias personas, repite el formulario o indícalo en notas. El
