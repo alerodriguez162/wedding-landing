@@ -5,6 +5,7 @@ import {
   SITE_METADATA_TITLE,
   SITE_OG_DESCRIPTION,
 } from '@/lib/constants'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -35,7 +36,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={`${cormorant.variable} ${outfit.variable}`} lang="es">
-      <body className="font-sans min-h-screen">{children}</body>
+      <body className="font-sans min-h-screen">
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
