@@ -43,7 +43,7 @@ export function Contact() {
                 Copiar número
               </button>
               <a
-                className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-[#25D366] px-2 py-2 text-xs font-medium text-white hover:bg-[#20bd5a] sm:px-4 sm:text-sm"
+                className="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-xl bg-stone-800 px-2 py-2 text-xs font-medium text-white transition hover:bg-stone-700 sm:px-4 sm:text-sm"
                 href={formatWhatsApp(contact.phone)}
                 rel="noopener noreferrer"
                 target="_blank"

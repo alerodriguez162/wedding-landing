@@ -41,6 +41,12 @@ input[type='checkbox'] {
   border-radius: 0.25rem;
 }
 
+/** Embeds de Facebook (fb-post): evitar ancho fijo que corta o desborda en móvil */
+.fb-post,
+.fb-post iframe {
+  max-width: 100% !important;
+}
+
 /**
  * Texto justificado para bloques narrativos (invitaciones, bienvenida).
  * En español mejora el bloque alineado a ambos márgenes; `hyphens` ayuda con cortes de palabra.

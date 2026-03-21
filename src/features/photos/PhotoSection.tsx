@@ -13,7 +13,7 @@ export function PhotoSection() {
           </p>
           <div>
             <a
-              className="inline-flex items-center gap-2 rounded-xl bg-gold-500 px-6 py-3.5 font-medium text-white shadow-sm transition hover:bg-gold-600"
+              className="inline-flex items-center gap-2 rounded-xl bg-stone-800 px-6 py-3.5 font-medium text-white shadow-sm transition hover:bg-stone-700"
               href={PHOTOS_ALBUM_URL}
               rel="noopener noreferrer"
               target="_blank"

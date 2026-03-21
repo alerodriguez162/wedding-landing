@@ -14,7 +14,6 @@ const SITE_DEFAULTS = {
   venueFbLink: 'https://www.facebook.com/profile.php?id=100067222092732&locale=es_LA',
   whatsappGroupLink: 'https://chat.whatsapp.com/DKqJHVJHMOBKCnl2K0tBED',
   roomFbPostUrls: [
-    'https://www.facebook.com/permalink.php?story_fbid=pfbid0RzJKCkkYXXES9L3R76jMV61bWBCtCcYf1MQ25zv9GbrStT7aRwekhZ5X9Cc3vrtql&id=100067222092732',
     'https://www.facebook.com/permalink.php?story_fbid=pfbid0RgVnwFT5XBgQhFHztRWSaT9BFQFHhRzMSD3H77JCncSbWh5GwH4AT61vnpMK5jydl&id=100067222092732',
     'https://www.facebook.com/permalink.php?story_fbid=pfbid0fdCU3EuHwPRTxJ6PizkzjSoP2k2bCzwsFrJ63vTs3rGGeaveXufhYBawVoRys9Bnl&id=100067222092732',
     'https://www.facebook.com/permalink.php?story_fbid=pfbid02v4QFiSAKYrT6ULd69jD8fYeKCg2zRN9jzXL5YveGR9VtxWZcyhZdEfXNLvT59vGul&id=100067222092732',

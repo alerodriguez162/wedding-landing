@@ -109,7 +109,7 @@ export function MealForm() {
               >
                 {ADULT_MAIN_DISHES.map((opt) => (
                   <label
-                    className="flex cursor-pointer items-center gap-4 rounded-xl border border-sand-200 bg-white p-4 has-[:checked]:border-gold-500 has-[:checked]:ring-2 has-[:checked]:ring-gold-500/30"
+                    className="flex cursor-pointer items-center gap-4 rounded-xl border border-blush-200/85 bg-white p-4 has-[:checked]:border-stone-800 has-[:checked]:ring-2 has-[:checked]:ring-stone-800/30"
                     key={opt.id}
                   >
                     <input

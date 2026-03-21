@@ -28,7 +28,7 @@ export async function POST(req: Request) {
         numberOfPeople,
         adults: data.adults,
         children: data.children,
-        roomsNeeded: data.roomsNeeded,
+        roomsNeeded: data.willingToShare ? null : data.roomsNeeded ?? null,
         roomBreakdown: data.roomBreakdown?.trim() || null,
         arrivalDate: new Date(data.arrivalDate),
         departureDate: new Date(data.departureDate),

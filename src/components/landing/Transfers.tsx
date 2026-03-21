@@ -20,7 +20,7 @@ export function Transfers() {
           <section>
             <h3 className="font-serif text-lg font-semibold text-stone-800">✈ Desde Huatulco</h3>
             <div className="mt-4 space-y-4 text-stone-600">
-              <div className="rounded-xl border border-sand-200 bg-sand-50/50 p-4">
+              <div className="rounded-xl border border-blush-200/85 bg-blush-100/45 p-4">
                 <p className="font-medium text-stone-800">
                   🟢 Transporte público (económico) – ~$100 por persona
                 </p>
@@ -34,7 +34,7 @@ export function Transfers() {
                   👉 Es la opción más fácil y práctica
                 </p>
               </div>
-              <div className="rounded-xl border border-sand-200 p-4">
+              <div className="rounded-xl border border-blush-200/85 p-4">
                 <p className="font-medium text-stone-800">🚕 Transporte privado – ~$800 a $1,000</p>
                 <p className="mt-1 text-sm">Taxi directo del aeropuerto a Puerto Ángel</p>
               </div>
@@ -55,7 +55,7 @@ export function Transfers() {
               ✈ Desde Puerto Escondido
             </h3>
             <div className="mt-4 space-y-4 text-stone-600">
-              <div className="rounded-xl border border-sand-200 bg-amber-50/40 p-4">
+              <div className="rounded-xl border border-blush-200/85 bg-blush-200/25 p-4">
                 <p className="font-medium text-stone-800">
                   🟡 Transporte público – ~$100 por persona
                 </p>
@@ -65,11 +65,11 @@ export function Transfers() {
                   <li>Bajarse en el crucero de Pochutla</li>
                   <li>Tomar taxi a Puerto Ángel, Playa Panteón</li>
                 </ol>
-                <p className="mt-2 text-sm text-amber-900">
+                <p className="mt-2 text-sm text-stone-800">
                   👉 Son 3 transportes, más largo y menos práctico
                 </p>
               </div>
-              <div className="rounded-xl border border-sand-200 p-4">
+              <div className="rounded-xl border border-blush-200/85 p-4">
                 <p className="font-medium text-stone-800">
                   🚕 Transporte privado – ~$1,300 a $1,800
                 </p>
@@ -86,6 +86,22 @@ export function Transfers() {
               Aproximadamente <strong>$700 por día</strong>. Buena opción si quieren moverse
               libremente.
             </p>
+            <div className="mt-4 rounded-xl border border-blush-200/85 bg-blush-100/40 p-4 text-sm leading-relaxed text-stone-700">
+              <p className="font-medium text-stone-800">Sugerencia: reserva desde el aeropuerto</p>
+              <p className="mt-2">
+                Puedes comparar opciones y reservar recogida en aeropuerto (según tu vuelo a Huatulco o
+                Puerto Escondido) en{' '}
+                <a
+                  className="font-medium text-gold-600 underline decoration-gold-400/70 underline-offset-2 hover:text-gold-700"
+                  href="https://www.rentcars.com/es-mx/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Rentcars
+                </a>
+                . Revisa bien la ubicación de entrega y el tipo de vehículo antes de confirmar.
+              </p>
+            </div>
           </section>
 
           <div className="rounded-xl border border-gold-200 bg-gold-50/50 p-4 text-sm text-stone-700">
@@ -97,7 +113,7 @@ export function Transfers() {
             </ul>
           </div>
 
-          <p className="rounded-xl bg-sand-50 p-4 text-center text-sm text-stone-600">
+          <p className="rounded-xl bg-blush-100/40 p-4 text-center text-sm text-stone-600">
             Contáctanos en cuanto tengan sus vuelos confirmados para coordinar si lo necesitan.
           </p>
         </div>

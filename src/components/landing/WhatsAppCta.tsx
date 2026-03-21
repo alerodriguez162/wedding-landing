@@ -4,14 +4,14 @@ import { WHATSAPP_GROUP_LINK } from '@/lib/constants'
 
 export function WhatsAppCta() {
   return (
-    <section className="section-padding bg-sand-100/50">
+    <section className="section-padding bg-blush-100/50">
       <div className="mx-auto max-w-2xl text-center">
         <p className="font-sans text-stone-600">
           ¿Quieres recibir avisos y detalles adicionales? Únete a nuestro grupo de WhatsApp
           (opcional).
         </p>
         <a
-          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-6 py-3.5 font-medium text-white shadow-sm transition hover:bg-[#20bd5a]"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-stone-800 px-6 py-3.5 font-medium text-white shadow-sm transition hover:bg-stone-700"
           href={WHATSAPP_GROUP_LINK}
           rel="noopener noreferrer"
           target="_blank"

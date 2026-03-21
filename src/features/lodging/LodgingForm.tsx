@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
-import { RoomPhotosLinks } from '@/components/landing/RoomPhotosLinks'
+import { RoomPhotosCarousel } from '@/components/landing/RoomPhotosCarousel'
 import { lodgingSchema, type LodgingInput } from './lodging-schema'
 import { PAYMENT_INSTRUCTIONS } from '@/lib/constants'
 import { differenceInDays } from 'date-fns'
@@ -41,6 +41,7 @@ export function LodgingForm() {
   const children = watch('children')
   const arrivalDate = watch('arrivalDate')
   const departureDate = watch('departureDate')
+  const willingToShare = watch('willingToShare')
 
   const numberOfPeople = useMemo(
     () => (Number(adults) || 0) + (Number(children) || 0),
@@ -83,7 +84,7 @@ export function LodgingForm() {
     <Section id="lodging" subtitle="Beach Club" title="Hospedaje">
       <Card>
         <div className="space-y-6">
-          <RoomPhotosLinks />
+          <RoomPhotosCarousel />
           <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm font-medium leading-relaxed text-amber-800">
             Solo se deben considerar los confirmados con los novios. No habrá excepciones.
           </p>
@@ -146,28 +147,53 @@ export function LodgingForm() {
               </div>
             </div>
 
-            <p className="rounded-xl bg-sand-50 px-4 py-3 text-sm leading-relaxed text-stone-700">
+            <p className="rounded-xl bg-blush-100/40 px-4 py-3 text-sm leading-relaxed text-stone-700">
               Total de personas: <strong>{numberOfPeople}</strong>
             </p>
 
-            <div className="form-field">
-              <label className="label" htmlFor="roomsNeeded">
-                ¿Cuántas habitaciones necesitan?
+            <div className="rounded-xl border border-blush-200/85 bg-blush-100/45 p-5">
+              <label className="flex cursor-pointer items-start gap-4">
+                <input
+                  className="mt-0.5 shrink-0"
+                  type="checkbox"
+                  {...register('willingToShare')}
+                />
+                <span className="space-y-1">
+                  <span className="font-medium text-stone-800">
+                    Estoy dispuesto(a) a compartir habitación si hace falta
+                  </span>
+                  <br />
+                  <span className="text-sm leading-relaxed text-stone-600">
+                    Se tratará de asignar con conocidos y preferentemente con alguien del mismo sexo. En
+                    ese caso no selecciones habitación abajo; te asignaremos días antes de tu llegada.
+                  </span>
+                </span>
               </label>
-              <input
-                className="input-field max-w-xs"
-                id="roomsNeeded"
-                max={50}
-                min={1}
-                type="number"
-                {...register('roomsNeeded', { valueAsNumber: true })}
-              />
-              {errors.roomsNeeded && (
-                <p className="form-error" role="alert">
-                  {errors.roomsNeeded.message}
-                </p>
-              )}
             </div>
+
+            {!willingToShare && (
+              <div className="form-field">
+                <label className="label" htmlFor="roomsNeeded">
+                  ¿Cuántas habitaciones necesitan?
+                </label>
+                <input
+                  className="input-field max-w-xs"
+                  id="roomsNeeded"
+                  max={50}
+                  min={1}
+                  type="number"
+                  {...register('roomsNeeded', {
+                    valueAsNumber: true,
+                    shouldUnregister: true,
+                  })}
+                />
+                {errors.roomsNeeded && (
+                  <p className="form-error" role="alert">
+                    {errors.roomsNeeded.message}
+                  </p>
+                )}
+              </div>
+            )}
 
             <div className="form-field">
               <label className="label" htmlFor="roomBreakdown">
@@ -226,26 +252,7 @@ export function LodgingForm() {
               </p>
             )}
 
-            <div className="rounded-xl border border-sand-200 bg-sand-50/50 p-5">
-              <label className="flex cursor-pointer items-start gap-4">
-                <input
-                  className="mt-0.5 shrink-0"
-                  type="checkbox"
-                  {...register('willingToShare')}
-                />
-                <span className="space-y-1">
-                  <span className="font-medium text-stone-800">
-                    Estoy dispuesto(a) a compartir habitación si hace falta
-                  </span>
-                  <br />
-                  <span className="text-sm leading-relaxed text-stone-600">
-                    Lo coordinaremos con los novios según disponibilidad.
-                  </span>
-                </span>
-              </label>
-            </div>
-
-            <div className="rounded-xl border border-sand-200 bg-sand-50/50 p-5 text-sm leading-relaxed text-stone-600">
+            <div className="rounded-xl border border-blush-200/85 bg-blush-100/45 p-5 text-sm leading-relaxed text-stone-600">
               <p className="font-medium text-stone-800">Pago o apartado</p>
               <p className="mt-2 whitespace-pre-line">{PAYMENT_INSTRUCTIONS}</p>
             </div>

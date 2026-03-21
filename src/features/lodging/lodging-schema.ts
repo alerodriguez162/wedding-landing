@@ -1,11 +1,19 @@
 import { z } from 'zod'
 
+function roomsNeededFromForm(val: unknown): number | undefined {
+  if (val === '' || val === null || val === undefined) return undefined
+  if (typeof val === 'number' && Number.isNaN(val)) return undefined
+  const n = typeof val === 'number' ? val : Number(val)
+  if (Number.isNaN(n)) return undefined
+  return n
+}
+
 export const lodgingSchema = z
   .object({
     name: z.string().min(2, 'Nombre requerido').max(100),
     adults: z.coerce.number().min(0, 'Mínimo 0').max(20),
     children: z.coerce.number().min(0, 'Mínimo 0').max(20),
-    roomsNeeded: z.coerce.number().min(1, 'Indica cuántas habitaciones necesitas').max(50),
+    roomsNeeded: z.preprocess(roomsNeededFromForm, z.number().min(1).max(50).optional()),
     roomBreakdown: z.string().max(2000).optional(),
     arrivalDate: z.string().min(1, 'Indica día de llegada'),
     departureDate: z.string().min(1, 'Indica día de salida'),
@@ -16,6 +24,13 @@ export const lodgingSchema = z
     message: 'Indica al menos 1 persona (adultos o niños)',
     path: ['adults'],
   })
+  .refine(
+    (data) => {
+      if (data.willingToShare === true) return true
+      return data.roomsNeeded !== undefined && data.roomsNeeded >= 1
+    },
+    { message: 'Indica cuántas habitaciones necesitas', path: ['roomsNeeded'] },
+  )
   .refine(
     (data) => {
       if (!data.arrivalDate || !data.departureDate) return true

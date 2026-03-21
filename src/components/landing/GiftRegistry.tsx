@@ -27,7 +27,7 @@ export function GiftRegistry() {
         <div className="flex flex-col gap-4 sm:mx-auto sm:max-w-md">
           {registries.map((r) => (
             <a
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-500 px-5 py-3.5 text-center text-sm font-semibold text-white shadow-md transition hover:bg-gold-600"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-stone-800 px-5 py-3.5 text-center text-sm font-semibold text-white shadow-md transition hover:bg-stone-700"
               href={r.url}
               key={r.id}
               rel="noopener noreferrer"
