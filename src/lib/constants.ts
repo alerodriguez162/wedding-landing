@@ -46,11 +46,6 @@ Si tienes dudas, contáctanos por WhatsApp.
     'https://photos.google.com/share/AF1QipNOt-sRlXxTCkqGIXa-VCkh2XzbKY9zGLJzHZg36WyeiL0Ght0HOP2Z4xY4t5DPDg?key=M3lMcER3Z0c0MzNONW5nYWJRYmZTX3Uxc09ZRDhB',
 } as const
 
-function env(key: string): string | undefined {
-  const v = process.env[key]?.trim()
-  return v || undefined
-}
-
 function parseContactsJson(raw: string): SiteContact[] | null {
   try {
     const parsed = JSON.parse(raw) as unknown
@@ -79,26 +74,33 @@ function parseContactsJson(raw: string): SiteContact[] | null {
 }
 
 // --- Fecha y evento ---
+// NEXT_PUBLIC_*: usar siempre `process.env.NEXT_PUBLIC_NOMBRE` (acceso literal).
+// Con `process.env[claveDinámica]` Next.js no inyecta valores en el bundle del cliente.
 
-const eventDateIso = env('NEXT_PUBLIC_EVENT_DATE_ISO') ?? SITE_DEFAULTS.eventDateIso
+const eventDateIso =
+  process.env.NEXT_PUBLIC_EVENT_DATE_ISO?.trim() ?? SITE_DEFAULTS.eventDateIso
 export const EVENT_DATE = new Date(eventDateIso)
 
 export const EVENT_DATE_DISPLAY_ES =
-  env('NEXT_PUBLIC_EVENT_DATE_DISPLAY_ES') ?? SITE_DEFAULTS.eventDateDisplayEs
+  process.env.NEXT_PUBLIC_EVENT_DATE_DISPLAY_ES?.trim() ?? SITE_DEFAULTS.eventDateDisplayEs
 
-export const EVENT_NAME = env('NEXT_PUBLIC_EVENT_NAME') ?? SITE_DEFAULTS.eventName
+export const EVENT_NAME =
+  process.env.NEXT_PUBLIC_EVENT_NAME?.trim() ?? SITE_DEFAULTS.eventName
 
-export const VENUE_NAME = env('NEXT_PUBLIC_VENUE_NAME') ?? SITE_DEFAULTS.venueName
+export const VENUE_NAME =
+  process.env.NEXT_PUBLIC_VENUE_NAME?.trim() ?? SITE_DEFAULTS.venueName
 
-export const VENUE_FB_LINK = env('NEXT_PUBLIC_VENUE_FB_LINK') ?? SITE_DEFAULTS.venueFbLink
+export const VENUE_FB_LINK =
+  process.env.NEXT_PUBLIC_VENUE_FB_LINK?.trim() ?? SITE_DEFAULTS.venueFbLink
 
 /** Web, Instagram u otro enlace del venue. Si vacío, se usa VENUE_FB_LINK. */
-export const VENUE_PUBLIC_LINK = env('NEXT_PUBLIC_VENUE_PUBLIC_LINK') || VENUE_FB_LINK
+export const VENUE_PUBLIC_LINK =
+  process.env.NEXT_PUBLIC_VENUE_PUBLIC_LINK?.trim() || VENUE_FB_LINK
 
 export const WHATSAPP_GROUP_LINK =
-  env('NEXT_PUBLIC_WHATSAPP_GROUP_LINK') ?? SITE_DEFAULTS.whatsappGroupLink
+  process.env.NEXT_PUBLIC_WHATSAPP_GROUP_LINK?.trim() ?? SITE_DEFAULTS.whatsappGroupLink
 
-const roomFbPostsEnv = env('NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS') ?? ''
+const roomFbPostsEnv = process.env.NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS?.trim() ?? ''
 
 export const ROOM_PHOTOS_FACEBOOK_POST_URLS: string[] = roomFbPostsEnv
   ? roomFbPostsEnv
@@ -108,10 +110,10 @@ export const ROOM_PHOTOS_FACEBOOK_POST_URLS: string[] = roomFbPostsEnv
   : [...SITE_DEFAULTS.roomFbPostUrls]
 
 export const GIFT_REGISTRY_WEDDING_URL =
-  env('NEXT_PUBLIC_GIFT_REGISTRY_WEDDING_URL') ?? SITE_DEFAULTS.giftRegistryWedding
+  process.env.NEXT_PUBLIC_GIFT_REGISTRY_WEDDING_URL?.trim() ?? SITE_DEFAULTS.giftRegistryWedding
 
 export const GIFT_REGISTRY_BAPTISM_URL =
-  env('NEXT_PUBLIC_GIFT_REGISTRY_BAPTISM_URL') ?? SITE_DEFAULTS.giftRegistryBaptism
+  process.env.NEXT_PUBLIC_GIFT_REGISTRY_BAPTISM_URL?.trim() ?? SITE_DEFAULTS.giftRegistryBaptism
 
 /** Último segmento del path de la URL de Liverpool (ID numérico de la lista de regalos). */
 export function giftRegistryListIdFromUrl(url: string): string {
@@ -121,37 +123,38 @@ export function giftRegistryListIdFromUrl(url: string): string {
 }
 
 export const PINTEREST_BOARD_URL =
-  env('NEXT_PUBLIC_PINTEREST_BOARD_URL') ?? SITE_DEFAULTS.pinterestBoard
+  process.env.NEXT_PUBLIC_PINTEREST_BOARD_URL?.trim() ?? SITE_DEFAULTS.pinterestBoard
 
 export const PINTEREST_SHARE_URL =
-  env('NEXT_PUBLIC_PINTEREST_SHARE_URL') ?? SITE_DEFAULTS.pinterestShare
+  process.env.NEXT_PUBLIC_PINTEREST_SHARE_URL?.trim() ?? SITE_DEFAULTS.pinterestShare
 
-const makeupPriceRaw = env('NEXT_PUBLIC_MAKEUP_HAIR_PRICE')
+const makeupPriceRaw = process.env.NEXT_PUBLIC_MAKEUP_HAIR_PRICE?.trim()
 const makeupParsed = makeupPriceRaw ? Number.parseInt(makeupPriceRaw, 10) : NaN
 export const MAKEUP_HAIR_PRICE = Number.isFinite(makeupParsed) ? makeupParsed : SITE_DEFAULTS.makeupHairPrice
 
 export const MAKEUP_HAIR_LINK =
-  env('NEXT_PUBLIC_MAKEUP_HAIR_LINK') ?? SITE_DEFAULTS.makeupHairLink
+  process.env.NEXT_PUBLIC_MAKEUP_HAIR_LINK?.trim() ?? SITE_DEFAULTS.makeupHairLink
 
-const contactsFromEnv = env('NEXT_PUBLIC_CONTACTS_JSON')
+const contactsFromEnv = process.env.NEXT_PUBLIC_CONTACTS_JSON?.trim()
 export const CONTACTS: readonly SiteContact[] = contactsFromEnv
   ? parseContactsJson(contactsFromEnv) ?? SITE_DEFAULTS.contacts
   : SITE_DEFAULTS.contacts
 
-const paymentFromEnv = env('NEXT_PUBLIC_PAYMENT_INSTRUCTIONS')
+const paymentFromEnv = process.env.NEXT_PUBLIC_PAYMENT_INSTRUCTIONS?.trim()
 export const PAYMENT_INSTRUCTIONS = paymentFromEnv
   ? paymentFromEnv.replace(/\\n/g, '\n').trim()
   : SITE_DEFAULTS.paymentInstructions
 
 /** `<title>` y metadatos Open Graph (también en `layout.tsx`). */
-export const SITE_METADATA_TITLE = env('NEXT_PUBLIC_SITE_TITLE') ?? SITE_DEFAULTS.siteTitle
+export const SITE_METADATA_TITLE =
+  process.env.NEXT_PUBLIC_SITE_TITLE?.trim() ?? SITE_DEFAULTS.siteTitle
 
 export const SITE_METADATA_DESCRIPTION =
-  env('NEXT_PUBLIC_SITE_DESCRIPTION') ?? SITE_DEFAULTS.siteDescription
+  process.env.NEXT_PUBLIC_SITE_DESCRIPTION?.trim() ?? SITE_DEFAULTS.siteDescription
 
 export const SITE_OG_DESCRIPTION =
-  env('NEXT_PUBLIC_SITE_OG_DESCRIPTION') ?? SITE_DEFAULTS.siteOgDescription
+  process.env.NEXT_PUBLIC_SITE_OG_DESCRIPTION?.trim() ?? SITE_DEFAULTS.siteOgDescription
 
 /** Álbum de fotos del evento (Google Fotos u otro). Sobrescribe con NEXT_PUBLIC_PHOTOS_ALBUM_URL. */
 export const PHOTOS_ALBUM_URL =
-  env('NEXT_PUBLIC_PHOTOS_ALBUM_URL') ?? SITE_DEFAULTS.photosAlbumUrl
+  process.env.NEXT_PUBLIC_PHOTOS_ALBUM_URL?.trim() ?? SITE_DEFAULTS.photosAlbumUrl

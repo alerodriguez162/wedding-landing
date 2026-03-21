@@ -64,6 +64,8 @@ const password = 'LA_MISMA_QUE_SITE_PASSWORD'
 console.log(`${base}#c=${encodeURIComponent(password)}`)
 ```
 
+Si la contraseña es solo letras y números (ej. `InvitadosFE2026`), **`encodeURIComponent` no cambia el texto**: es normal que el enlace se vea igual; el encoding solo añade `%20`, `%40`, etc. cuando hay espacios, símbolos o acentos.
+
 Luego pega esa cadena en cualquier generador de QR (qr-code-generator.com, el de Google, etc.).
 
 **Importante:** quien tenga el QR (o una foto del mismo) puede entrar; úsalo solo en invitaciones físicas o canales privados, no lo publiques en redes abiertas.
