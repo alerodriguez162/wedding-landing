@@ -46,6 +46,28 @@ Abre [http://localhost:3000](http://localhost:3000). El panel de administración
 
 **Si la ruta principal no redirige a `/acceso`:** comprueba que tienes `NEXT_PUBLIC_SITE_PROTECTED="true"` en `.env`. Sin ella, el middleware no puede saber que la protección está activa (limitación del Edge Runtime).
 
+#### QR con acceso (contraseña en el enlace)
+
+Sí: puedes generar un código QR cuyo contenido sea una URL con **fragmento** `#c=…` (la contraseña va codificada, no en la query `?`). El fragmento **no se envía al servidor** al abrir la página; solo lo lee el navegador y la app intenta entrar sola.
+
+Formato del texto del QR (sustituye dominio y contraseña):
+
+```txt
+https://TU_DOMINIO/acceso#c=CONTRASEÑA_URL_ENCODED
+```
+
+Ejemplo en JavaScript para obtener el texto exacto (ejecuta en la consola del navegador o un script local):
+
+```js
+const base = 'https://bodadulceyeduardo.xyz/acceso'
+const password = 'LA_MISMA_QUE_SITE_PASSWORD'
+console.log(`${base}#c=${encodeURIComponent(password)}`)
+```
+
+Luego pega esa cadena en cualquier generador de QR (qr-code-generator.com, el de Google, etc.).
+
+**Importante:** quien tenga el QR (o una foto del mismo) puede entrar; úsalo solo en invitaciones físicas o canales privados, no lo publiques en redes abiertas.
+
 ## Variables de entorno
 
 | Variable                          | Descripción                                      |

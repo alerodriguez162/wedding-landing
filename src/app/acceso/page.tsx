@@ -9,6 +9,25 @@ function safeRedirectPath(from: string | null): string {
   return from
 }
 
+/**
+ * Contraseña embebida en el QR vía fragmento (#c=...).
+ * El hash no se envía al servidor al cargar la página (mejor que ?p= en la query).
+ */
+function readPasswordFromHash(): string | null {
+  if (typeof window === 'undefined') return null
+  const raw = window.location.hash.startsWith('#')
+    ? window.location.hash.slice(1)
+    : window.location.hash
+  const params = new URLSearchParams(raw)
+  const encoded = params.get('c')
+  if (!encoded) return null
+  try {
+    return decodeURIComponent(encoded)
+  } catch {
+    return null
+  }
+}
+
 export default function AccesoPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -17,7 +36,35 @@ export default function AccesoPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    setRedirectTo(safeRedirectPath(params.get('from')))
+    const redirect = safeRedirectPath(params.get('from'))
+    setRedirectTo(redirect)
+
+    const fromHash = readPasswordFromHash()
+    if (fromHash) {
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`)
+      setPassword(fromHash)
+      setLoading(true)
+      setError('')
+      void (async () => {
+        try {
+          const res = await fetch('/api/site-auth', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: fromHash }),
+          })
+          const data = await res.json()
+          if (!res.ok) {
+            setError(data.message || 'Contraseña incorrecta')
+            return
+          }
+          window.location.href = redirect
+        } catch {
+          setError('Error de conexión. Intenta de nuevo.')
+        } finally {
+          setLoading(false)
+        }
+      })()
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,6 +98,9 @@ export default function AccesoPage() {
         </h1>
         <p className="mt-2 text-center text-sm text-stone-500">
           Introduce la contraseña que te compartieron para entrar.
+        </p>
+        <p className="mt-3 text-center text-xs text-stone-400">
+          Si entraste con un QR con enlace mágico, la clave se aplica sola de forma segura.
         </p>
         <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
           <div className="form-field">
