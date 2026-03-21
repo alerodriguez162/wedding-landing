@@ -7,6 +7,10 @@ import { ROOM_PHOTOS_FACEBOOK_POST_URLS } from '@/lib/constants'
 const FB_SDK_URL =
   'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v21.0'
 
+/** Altura mínima reservada: evita CLS al cargar el SDK y el iframe de Facebook. */
+const EMBED_AREA_CLASS =
+  'min-h-[460px] sm:min-h-[500px] md:min-h-[520px]'
+
 /** Ancho del embed fb-post: en móvil usa el ancho disponible para evitar cortes y scroll horizontal. */
 function useFbEmbedWidth() {
   const [w, setW] = useState(320)
@@ -72,24 +76,24 @@ export function RoomPhotosCarousel() {
       <div className="mb-6 rounded-xl border border-dashed border-blush-200/90 bg-blush-100/55 px-4 py-6 text-center text-sm text-stone-600">
         <p className="font-medium text-stone-700">Fotos de habitaciones</p>
         <p className="mt-2 text-xs text-stone-500">
-          Configura{' '}
-          <code className="rounded bg-blush-200/60 px-1 py-0.5 text-[0.75rem]">
+          Configura <code className="rounded bg-blush-200/60 px-1 py-0.5 text-[0.75rem]">
             NEXT_PUBLIC_ROOM_PHOTOS_FACEBOOK_POST_URLS
-          </code>{' '}
-          (enlaces a publicaciones de Facebook, separados por coma).
+          </code> (enlaces a publicaciones de Facebook, separados por coma).
         </p>
       </div>
     )
   }
 
-  /** Placeholder durante SSR/hidratación: evita mismatch (embedWidth, FB SDK solo existen en cliente). */
+  /** Placeholder durante SSR/hidratación: misma altura mínima que el embed para no mover el layout. */
   if (!mounted) {
     return (
       <div className="mb-6 w-full min-w-0">
         <p className="mb-3 text-sm font-medium text-stone-700">
           Fotos de las habitaciones (desde Facebook)
         </p>
-        <div className="min-h-[200px] w-full rounded-xl border border-blush-200/85 bg-blush-100/45 flex items-center justify-center text-sm text-stone-500">
+        <div
+          className={`flex w-full items-center justify-center rounded-xl border border-blush-200/85 bg-blush-100/45 text-sm text-stone-500 ${EMBED_AREA_CLASS}`}
+        >
           Cargando…
         </div>
       </div>
@@ -106,19 +110,19 @@ export function RoomPhotosCarousel() {
         </p>
         <div className="relative w-full min-w-0 overflow-hidden rounded-xl border border-blush-200/85 bg-blush-100/45">
           <div
-            className="flex w-full min-w-0 transition-transform duration-300 ease-out"
+            className="flex w-full min-w-0 items-stretch transition-transform duration-300 ease-out"
             ref={containerRef}
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {urls.map((href, i) => (
               <div
-                className="box-border flex min-w-[100%] max-w-full shrink-0 justify-center px-2 py-3 sm:px-4 sm:py-4"
+                className={`box-border flex min-w-[100%] max-w-full shrink-0 flex-col justify-start px-2 py-3 sm:px-4 sm:py-4 ${EMBED_AREA_CLASS}`}
                 key={`${href}-${i}`}
                 style={{ width: '100%' }}
               >
-                <div className="w-full min-w-0 max-w-full overflow-x-auto overflow-y-visible [-webkit-overflow-scrolling:touch]">
+                <div className="flex w-full min-w-0 flex-1 flex-col items-center justify-start overflow-x-auto overflow-y-visible [-webkit-overflow-scrolling:touch]">
                   <div
-                    className="fb-post mx-auto max-w-full"
+                    className="fb-post mx-auto w-full max-w-full shrink-0"
                     data-href={href}
                     data-show-text="false"
                     data-width={embedWidth}

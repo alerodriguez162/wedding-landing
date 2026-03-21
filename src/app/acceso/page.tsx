@@ -1,12 +1,24 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
+
+function safeRedirectPath(from: string | null): string {
+  if (!from || !from.startsWith('/') || from.startsWith('//') || from.includes('..')) {
+    return '/'
+  }
+  return from
+}
 
 export default function AccesoPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [redirectTo, setRedirectTo] = useState('/')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    setRedirectTo(safeRedirectPath(params.get('from')))
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -23,7 +35,7 @@ export default function AccesoPage() {
         setError(data.message || 'Contraseña incorrecta')
         return
       }
-      window.location.href = '/'
+      window.location.href = redirectTo
     } catch {
       setError('Error de conexión. Intenta de nuevo.')
     } finally {
@@ -32,8 +44,8 @@ export default function AccesoPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-sand-100 to-sand-50 px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-sand-200 bg-white p-8 shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-blush-100 to-blush-50 px-4">
+      <div className="w-full max-w-sm rounded-2xl border border-blush-200/80 bg-white p-8 shadow-lg">
         <h1 className="text-center font-serif text-2xl font-semibold text-stone-800">
           Acceso privado
         </h1>
@@ -71,9 +83,6 @@ export default function AccesoPage() {
           Boda y Bautismo · Sitio privado para invitados
         </p>
       </div>
-      <Link className="mt-6 text-sm text-stone-500 underline hover:text-stone-700" href="/">
-        Volver al inicio
-      </Link>
     </div>
   )
 }

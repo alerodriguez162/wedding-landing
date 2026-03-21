@@ -6,7 +6,8 @@ const TOKEN_MAX_AGE_SEC = 60 * 60 * 24 * 365 // 1 year
 const JWT_ISSUER = 'wedding-landing-site'
 
 function getSecret(): Uint8Array {
-  const secret = process.env.ADMIN_JWT_SECRET || process.env.JWT_SECRET
+  const raw = process.env.ADMIN_JWT_SECRET || process.env.JWT_SECRET
+  const secret = raw?.trim()
   if (!secret || secret.length < 32) {
     throw new Error('ADMIN_JWT_SECRET must be set for site access (min 32 chars)')
   }
@@ -54,4 +55,17 @@ export async function setSiteAccessCookie(token: string): Promise<void> {
   })
 }
 
-export { COOKIE_NAME, JWT_ISSUER }
+/** Opciones de cookie para `site_access` (usar con NextResponse.cookies.set en Route Handlers). */
+export function getSiteAccessCookieOptions(token: string) {
+  return {
+    name: COOKIE_NAME,
+    value: token,
+    httpOnly: true as const,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax' as const,
+    maxAge: TOKEN_MAX_AGE_SEC,
+    path: '/',
+  }
+}
+
+export { COOKIE_NAME, JWT_ISSUER, TOKEN_MAX_AGE_SEC }

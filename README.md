@@ -34,6 +34,18 @@ npm run dev
 
 Abre [http://localhost:3000](http://localhost:3000). El panel de administración está en [http://localhost:3000/admin](http://localhost:3000/admin).
 
+### Sitio privado (solo invitados)
+
+1. En `.env`, define **`SITE_PASSWORD`** con la contraseña que compartirás por WhatsApp u otro canal (por ejemplo `SITE_PASSWORD="MiClave2026"`).
+2. Define también **`NEXT_PUBLIC_SITE_PROTECTED="true"`**. El middleware corre en Edge Runtime, donde las variables sin `NEXT_PUBLIC_` no están disponibles; este flag activa la puerta (no expone la contraseña).
+3. Asegúrate de tener **`ADMIN_JWT_SECRET`** con al menos 32 caracteres (ya lo usas para el panel admin).
+4. Reinicia `npm run dev` o el despliegue. Cualquier visita a la web irá a **`/acceso`** hasta introducir la contraseña; se guarda una cookie segura por un año.
+5. Si **no** defines ambos (`SITE_PASSWORD` y `NEXT_PUBLIC_SITE_PROTECTED`), el sitio sigue siendo **público** para cualquiera con el enlace.
+
+**Si la contraseña no “entra”:** reinicia el servidor (`npm run dev` o redeploy). Comprueba en el navegador `GET /api/site-auth` — debe responder `sitePasswordConfigured: true` y `jwtSecretOk: true`. Si `jwtSecretOk` es false, alarga `ADMIN_JWT_SECRET` a ≥32 caracteres.
+
+**Si la ruta principal no redirige a `/acceso`:** comprueba que tienes `NEXT_PUBLIC_SITE_PROTECTED="true"` en `.env`. Sin ella, el middleware no puede saber que la protección está activa (limitación del Edge Runtime).
+
 ## Variables de entorno
 
 | Variable                          | Descripción                                      |
@@ -41,7 +53,8 @@ Abre [http://localhost:3000](http://localhost:3000). El panel de administración
 | `DATABASE_URL`                    | URL de conexión PostgreSQL                       |
 | `ADMIN_PASSWORD`                  | Contraseña del panel admin                       |
 | `ADMIN_JWT_SECRET`                | Secreto JWT del panel admin (≥32 caracteres)      |
-| `SITE_PASSWORD`                   | (Opcional) Sitio privado: contraseña para invitados |
+| `SITE_PASSWORD`                   | (Opcional) Contraseña para ver la web. Requiere `NEXT_PUBLIC_SITE_PROTECTED` y `ADMIN_JWT_SECRET`. |
+| `NEXT_PUBLIC_SITE_PROTECTED`      | `"true"` si usas sitio privado; el Edge Runtime necesita este flag para activar la puerta. |
 | `NEXT_PUBLIC_SITE_URL`            | (Opcional) URL pública del sitio para enlaces/QR |
 
 **Contenido de la landing** (fechas, nombres, venue, WhatsApp, mesas de regalos, Pinterest, contactos, textos SEO, etc.):  
@@ -57,7 +70,7 @@ El proyecto incluye `vercel.json` con el comando de build ya configurado (`prism
    - `DATABASE_URL` — PostgreSQL (ej. [Neon](https://neon.tech) o [Supabase](https://supabase.com), plan gratis).
    - `ADMIN_JWT_SECRET` — mínimo 32 caracteres, aleatorio (para el login del panel).
    - `ADMIN_PASSWORD` — contraseña del panel admin.
-   - `SITE_PASSWORD` — (opcional) si la defines, toda la web pide esta contraseña antes de entrar (sitio privado para invitados).
+   - `SITE_PASSWORD` — (opcional) contraseña para invitados; si la usas, añade también `NEXT_PUBLIC_SITE_PROTECTED=true`.
 3. **Build:** no cambies nada; Vercel usa el `buildCommand` de `vercel.json`.
 4. **Despliega.** Tras el primer deploy, en tu máquina (con la misma `DATABASE_URL`) ejecuta:
    ```bash

@@ -41,10 +41,22 @@ input[type='checkbox'] {
   border-radius: 0.25rem;
 }
 
-/** Embeds de Facebook (fb-post): evitar ancho fijo que corta o desborda en móvil */
-.fb-post,
-.fb-post iframe {
+/** Embeds de Facebook (fb-post): centrado en web y ancho fluido en móvil */
+.fb-post {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
   max-width: 100% !important;
+}
+.fb-post iframe,
+.fb-post > span {
+  max-width: 100% !important;
+}
+.fb-post iframe {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /**

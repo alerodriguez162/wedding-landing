@@ -90,8 +90,7 @@ export function Transfers() {
               <p className="font-medium text-stone-800">Sugerencia: reserva desde el aeropuerto</p>
               <p className="mt-2">
                 Puedes comparar opciones y reservar recogida en aeropuerto (según tu vuelo a Huatulco o
-                Puerto Escondido) en{' '}
-                <a
+                Puerto Escondido) en <a
                   className="font-medium text-gold-600 underline decoration-gold-400/70 underline-offset-2 hover:text-gold-700"
                   href="https://www.rentcars.com/es-mx/"
                   rel="noopener noreferrer"
