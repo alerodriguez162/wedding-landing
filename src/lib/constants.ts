@@ -19,9 +19,9 @@ const SITE_DEFAULTS = {
     'https://www.facebook.com/permalink.php?story_fbid=pfbid02v4QFiSAKYrT6ULd69jD8fYeKCg2zRN9jzXL5YveGR9VtxWZcyhZdEfXNLvT59vGul&id=100067222092732',
   ],
   giftRegistryWedding:
-    'https://mesaderegalos.liverpool.com.mx/gestiondeeventos/listaderegalos/51973467',
-  giftRegistryBaptism:
     'https://mesaderegalos.liverpool.com.mx/gestiondeeventos/listaderegalos/51973470',
+  giftRegistryBaptism:
+    'https://mesaderegalos.liverpool.com.mx/gestiondeeventos/listaderegalos/51973467',
   pinterestBoard: 'https://www.pinterest.com/hoshi_hikari13/inspobodaplaya/',
   pinterestShare: 'https://pin.it/9P7cj0A70',
   makeupHairPrice: 1800,
@@ -112,6 +112,13 @@ export const GIFT_REGISTRY_WEDDING_URL =
 
 export const GIFT_REGISTRY_BAPTISM_URL =
   env('NEXT_PUBLIC_GIFT_REGISTRY_BAPTISM_URL') ?? SITE_DEFAULTS.giftRegistryBaptism
+
+/** Último segmento del path de la URL de Liverpool (ID numérico de la lista de regalos). */
+export function giftRegistryListIdFromUrl(url: string): string {
+  const trimmed = url.trim().replace(/\/+$/, '')
+  const segment = trimmed.split('/').filter(Boolean).pop() ?? ''
+  return /^\d+$/.test(segment) ? segment : segment || '—'
+}
 
 export const PINTEREST_BOARD_URL =
   env('NEXT_PUBLIC_PINTEREST_BOARD_URL') ?? SITE_DEFAULTS.pinterestBoard
