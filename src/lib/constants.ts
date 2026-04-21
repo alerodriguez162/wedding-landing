@@ -33,8 +33,18 @@ const SITE_DEFAULTS = {
     { name: 'Fabi', phone: '5528584046' },
   ] satisfies SiteContact[],
   paymentInstructions: `
-Para apartar tu habitación, realiza una transferencia a la cuenta que se te indicará por mensaje.
-Una vez confirmado el pago, tu reservación quedará confirmada.
+Reserva y liquidación de habitaciones
+
+Para apartar, haz una transferencia por $1,000 MXN con los datos de abajo. En la semana del evento te compartiremos cuánto resta para liquidar.
+
+¡Hola!
+
+Estos son mis datos para transferir:
+
+Beneficiario: Karina Marlenne Rodriguez Miranda
+CLABE: 638180010153836076
+Entidad financiera: Nu México
+
 Si tienes dudas, contáctanos por WhatsApp.
 `.trim(),
   siteTitle: 'Dulce Fabiola & José Eduardo | Boda y Bautismo',

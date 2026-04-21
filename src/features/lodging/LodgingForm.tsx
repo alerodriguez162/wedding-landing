@@ -91,7 +91,8 @@ export function LodgingForm() {
 
           {status === 'success' && (
             <div className="rounded-xl bg-green-50 p-4 leading-relaxed text-green-800">
-              Solicitud guardada. Te contactaremos para confirmar y dar instrucciones de pago.
+              Solicitud guardada. Te contactaremos para confirmar. El apartado y los datos de transferencia están en
+              esta misma sección.
             </div>
           )}
           {status === 'error' && (
