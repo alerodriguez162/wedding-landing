@@ -14,17 +14,16 @@ const mainSchedule: { time: string; title: string }[] = [
 
 const afterDj: string[] = [
   'Presentación de los novios y de Julieta José, palabras y brindis',
-  'Música durante la cena (30 min)',
   'Primer baile de los novios (5 min)',
   'Baile general (1 hora)',
   'Víbora de la mar',
   'Lanzamiento de ramo, liga y corbata',
   'Corte de pastel',
-  'Tiempo de espera hasta la sirena',
+  'Tiempo de espera hasta el espectáculo de fuego',
 ]
 
 const lateNight: { time: string; title: string }[] = [
-  { time: '10:30 – 11:40 p. m.', title: 'Sirena' },
+  { time: '10:30 – 11:00 p. m.', title: 'Espectáculo de fuego (30 min)' },
   { time: '11:10 p. m. en adelante', title: 'Música más intensa y ambiente de fiesta' },
   { time: '1:30 a. m.', title: 'Fin del evento' },
 ]
