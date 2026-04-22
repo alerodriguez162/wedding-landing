@@ -14,9 +14,12 @@ const mainSchedule: { time: string; title: string }[] = [
 
 const afterDj: string[] = [
   'Presentación de los novios y de Julieta José, palabras y brindis',
+  'Bolo',
+  'Intermedio con música suave',
   'Primer baile de los novios (5 min)',
   'Baile general (1 hora)',
   'Víbora de la mar',
+  'Botargas',
   'Lanzamiento de ramo, liga y corbata',
   'Corte de pastel',
   'Tiempo de espera hasta el espectáculo de fuego',
