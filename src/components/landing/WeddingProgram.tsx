@@ -4,30 +4,30 @@ import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 
 const mainSchedule: { time: string; title: string }[] = [
-  { time: '4:00 – 5:30 p. m.', title: 'Misa y velo' },
+  { time: '4:00 – 5:30 p. m.', title: 'Misa y bolo' },
   { time: '5:30 – 6:30 p. m.', title: 'Calenda' },
-  { time: '6:30 – 7:00 p. m.', title: 'Break / traslado' },
+  { time: '6:30 – 7:00 p. m.', title: 'Break' },
   { time: '7:00 p. m.', title: 'Ceremonia' },
   { time: '7:30 p. m.', title: 'Comida y mariachi' },
   { time: '8:30 p. m.', title: 'Inicio del DJ' },
 ]
 
 const afterDj: string[] = [
-  'Presentación de los novios y de Julieta José, palabras y brindis',
-  'Bolo',
+  'Presentación de los novios y de Julieta José',
   'Intermedio con música suave',
   'Primer baile de los novios (5 min)',
   'Baile general (1 hora)',
   'Víbora de la mar',
   'Botargas',
   'Lanzamiento de ramo, liga y corbata',
+  'Palabras y brindis',
   'Corte de pastel',
-  'Tiempo de espera hasta el espectáculo de fuego',
+  'Música hasta el espectáculo de fuego',
 ]
 
 const lateNight: { time: string; title: string }[] = [
   { time: '10:30 – 11:00 p. m.', title: 'Espectáculo de fuego (30 min)' },
-  { time: '11:10 p. m. en adelante', title: 'Música más intensa y ambiente de fiesta' },
+  { time: '11:10 p. m. en adelante', title: 'Baile' },
   { time: '1:30 a. m.', title: 'Fin del evento' },
 ]
 
