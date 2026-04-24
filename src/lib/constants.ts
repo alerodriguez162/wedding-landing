@@ -7,8 +7,8 @@ export type SiteContact = { name: string; phone: string }
 
 /** Valores por defecto (mismo evento) si falta una variable en `.env`. */
 const SITE_DEFAULTS = {
-  eventDateIso: '2026-04-25',
-  eventDateDisplayEs: '25 de abril de 2026',
+  eventDateIso: '2026-04-25T16:00:00-06:00',
+  eventDateDisplayEs: '25 de abril de 2026 · 4:00 p. m. hora centro de México',
   eventName: 'Boda y Bautismo',
   venueName: 'Beach Club',
   venueFbLink: 'https://www.facebook.com/profile.php?id=100067222092732&locale=es_LA',
